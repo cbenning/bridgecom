@@ -6,7 +6,7 @@ LDLIBS := -lIrrlicht -lGL -lXxf86vm -lXext -lX11 -lpng -ljpeg
 BIN_OUTPUT := ../bin/
 BIN_FILE := bridgecom
 
-all: game.o rtscamera.o
+all: game.o rtscamera.o ship.o
 	mkdir -p $(BIN_OUTPUT)
 	$(CC) $^ $(CFLAGS) $(LDLIBS) -o $(BIN_OUTPUT)$(BIN_FILE)
 	cp template_runscript.sh ../run.sh
@@ -15,6 +15,8 @@ all: game.o rtscamera.o
 game.o: game.cpp
 
 rtscamera.o: rtscamera.cpp
+
+ship.o: ship.cpp
 
 clean:
 	rm -rf game.o rtscamera.o ../run.sh ../bin
