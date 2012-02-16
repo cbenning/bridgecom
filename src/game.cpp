@@ -75,9 +75,9 @@ int main()
         
         guienv->addStaticText(L"Current Input",rect<s32>(10,10,260,22), true);
                 
-        smgr->addSkyDomeSceneNode(driver->getTexture("../media/starfield.png"),32,	32, 1.0f, 2.0f);
+        smgr->addSkyDomeSceneNode(driver->getTexture("../media/img/starfield.png"),32,	32, 1.0f, 2.0f);
 
-        IAnimatedMesh* mesh = smgr->getMesh("../media/ship1.b3d");
+        IAnimatedMesh* mesh = smgr->getMesh("../media/model/ship1.b3d");
         if (!mesh)
         {
                 device->drop();
