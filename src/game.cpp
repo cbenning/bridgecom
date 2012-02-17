@@ -81,7 +81,7 @@ int main()
     smgr->addSkyDomeSceneNode(driver->getTexture("../media/img/starfield.png"),32,	32, 1.0f, 2.0f);
     smgr->setAmbientLight(video::SColorf(0.3,0.3,0.3,1));
     Ship myship = Ship(smgr,0);
-    Planet p = Planet(smgr,driver,vector3df(-30,-30,-30),50,32,0);
+    Planet p = Planet(smgr,driver,vector3df(-100,-30,-30),50,32,0);
 
     RTSCamera* camera = new RTSCamera(device,smgr->getRootSceneNode(),smgr,1,200.0f, 2.0f,2.0f);
     camera->setPosition(vector3df(30,30,0)); 
