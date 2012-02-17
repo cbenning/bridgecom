@@ -2,6 +2,7 @@
 #include <iostream>
 #include "rtscamera.h"
 #include "ship.h"
+#include "planet.h"
 
 using namespace irr;
 using namespace core;
@@ -78,8 +79,9 @@ int main()
             
 
     smgr->addSkyDomeSceneNode(driver->getTexture("../media/img/starfield.png"),32,	32, 1.0f, 2.0f);
-
+    smgr->setAmbientLight(video::SColorf(0.3,0.3,0.3,1));
     Ship myship = Ship(smgr,0);
+    Planet p = Planet(smgr,driver,vector3df(0,0,0),400,10,0);
 
     RTSCamera* camera = new RTSCamera(device,smgr->getRootSceneNode(),smgr,1,200.0f, 2.0f,2.0f);
     camera->setPosition(vector3df(30,30,0)); 
@@ -97,6 +99,9 @@ int main()
      while(device->run())
     {
 
+
+
+        /*
         // Work Out A Frame Delta Time. This Allows For A Smooth Frame Rate On All Machines
         const u32 now = device->getTimer()->getTime();
         const f32 frameDeltaTime = (f32)(now - then) / 1000.f; // Time in seconds
@@ -135,11 +140,19 @@ int main()
                 device -> drop();
                 return 50;
         }
+        */
+        if (device->isWindowActive())
+        {
+            driver->beginScene(true, true, SColor(255,100,101,140));
+            smgr->drawAll();
+            guienv->drawAll();
+            driver->endScene();
+        }
+        else
+        {
+            device->yield();
+        }
 
-        driver->beginScene(true, true, SColor(255,100,101,140));
-        smgr->drawAll();
-        guienv->drawAll();
-        driver->endScene();
     }
     
     device->drop();

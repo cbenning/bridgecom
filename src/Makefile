@@ -6,7 +6,7 @@ LDLIBS := -lIrrlicht -lGL -lXxf86vm -lXext -lX11 -lpng -ljpeg
 BIN_OUTPUT := ../bin/
 BIN_FILE := bridgecom
 
-all: game.o rtscamera.o ship.o
+all: game.o rtscamera.o ship.o planet.o libNewton.a 	
 	mkdir -p $(BIN_OUTPUT)
 	$(CC) $^ $(CFLAGS) $(LDLIBS) -o $(BIN_OUTPUT)$(BIN_FILE)
 	cp template_runscript.sh ../run.sh
@@ -18,5 +18,7 @@ rtscamera.o: rtscamera.cpp
 
 ship.o: ship.cpp
 
+planet.o: planet.cpp
+
 clean:
-	rm -rf game.o rtscamera.o ../run.sh ../bin
+	rm -rf game.o rtscamera.o ship.o planet.o ../run.sh ../bin

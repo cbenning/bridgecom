@@ -1,7 +1,7 @@
 
 #include "ship.h"
+#include "def.h"
 
-#define MODEL_DIR "../media/model/"
 
 Ship::Ship(ISceneManager* smgr, const int model)
 {

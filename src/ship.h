@@ -11,7 +11,7 @@ using namespace io;
 using namespace gui; 
 using namespace std;
 
-#define MAX_SHIP_MODELS 10
+#define MAX_SHIP_MODELS 1
 
 
 class Ship
