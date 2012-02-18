@@ -1,0 +1,39 @@
+<?xml versio="1.0" ?>
+<system>
+<name>Sol</name>
+<backdrop>starfield.png</backdrop>
+<body>
+    <name>The Sun</name>
+    <type>star</type>
+    <radius>150</radius>
+    <texture>yellow_sun.jpg</texture>
+    <children>
+        <body>
+            <name>Terra</name>
+            <type>planet</type>
+            <radius>50</radius>
+            <texture>terra.jpg</texture>
+            <orbit_radius>400</orbit_radius>
+            <orbit_speed>5</orbit_speed>
+            <children>
+                <body>
+                    <name>Luna</name>
+                    <type>moon</type>
+                    <radius>10</radius>
+                    <texture>luna.jpg</texture>
+                    <orbit_radius>100</orbit_radius>
+                    <orbit_speed>7</orbit_speed>
+                </body>
+            </children>
+        </body>
+        <body>
+            <name>Mars</name>
+            <type>planet</type> 
+            <radius>30</radius>
+            <texture>mars.jpg</texture>
+            <orbit_radius>600</orbit_radius>
+            <orbit_speed>5</orbit_speed>
+        </body>
+    </children>
+</body>
+</system>

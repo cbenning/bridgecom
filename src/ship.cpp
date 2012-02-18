@@ -3,14 +3,13 @@
 #include "def.h"
 
 
-Ship::Ship(ISceneManager* smgr, const int model)
+Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, const int model)
 {
 
     //TODO: Make this better. suck it from a file?
-    shipModel[0] = "ship1.b3d";
+    //shipModel[0] = "ship1.b3d";
+    shipModel[0] = "ship2.b3d";
 
-    //std::string modelPath = MODEL_DIR;
-    //strcat(modelPath,shipModel[model]); //TODO Check model is >=0 < MAX_SHIP_MODELS
     cout<<(MODEL_DIR+shipModel[model]).c_str();
     mesh = smgr->getMesh((MODEL_DIR+shipModel[model]).c_str());
     if (!mesh)
@@ -20,7 +19,8 @@ Ship::Ship(ISceneManager* smgr, const int model)
     node = smgr->addAnimatedMeshSceneNode(mesh);
     
     if (node)
-    {
+    {       
+        //node->setMaterialTexture(0, driver->getTexture("../media/img/ship2.png"));
         node->setMaterialFlag(EMF_LIGHTING, false);
         node->setMaterialFlag(EMF_WIREFRAME, true);
     } 

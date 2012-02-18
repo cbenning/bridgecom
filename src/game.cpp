@@ -2,7 +2,7 @@
 #include <iostream>
 #include "rtscamera.h"
 #include "ship.h"
-#include "planet.h"
+#include "body.h"
 
 using namespace irr;
 using namespace core;
@@ -12,11 +12,10 @@ using namespace io;
 using namespace gui;
 using namespace std;
 
-#ifdef _IRR_WINDOWS_
+/*#ifdef _IRR_WINDOWS_
 #pragma comment(lib, "Irrlicht.lib")
 #pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
-#endif
-
+#endif*/
 
 
 class GameEventReceiver : public IEventReceiver
@@ -64,12 +63,12 @@ int main()
 {
     GameEventReceiver eventReceiver;
 
-	IrrlichtDevice *device = createDevice( video::EDT_OPENGL, dimension2d<u32>(800, 600), 16,false, false, false, &eventReceiver);
+	IrrlichtDevice *device = createDevice( video::EDT_OPENGL, dimension2d<u32>(1280, 800), 32,false, false, false, &eventReceiver);
 
     if (!device)
             return 1;
 
-    device->setWindowCaption(L"Hello World!");
+    device->setWindowCaption(L"bridgecom");
 
     IVideoDriver* driver = device->getVideoDriver();
     ISceneManager* smgr = device->getSceneManager();
@@ -80,8 +79,8 @@ int main()
 
     smgr->addSkyDomeSceneNode(driver->getTexture("../media/img/starfield.png"),32,	32, 1.0f, 2.0f);
     smgr->setAmbientLight(video::SColorf(0.3,0.3,0.3,1));
-    Ship myship = Ship(smgr,0);
-    Planet p = Planet(smgr,driver,vector3df(-100,-30,-30),50,32,0);
+    Ship myship = Ship(smgr,driver, 0);
+    //Planet p = Planet(smgr,driver,vector3df(-100,-30,-30),50,32,0);
 
     RTSCamera* camera = new RTSCamera(device,smgr->getRootSceneNode(),smgr,1,200.0f, 2.0f,2.0f);
     camera->setPosition(vector3df(30,30,0)); 
@@ -98,14 +97,12 @@ int main()
 
      while(device->run())
     {
-
-
-
-        /*
+        
         // Work Out A Frame Delta Time. This Allows For A Smooth Frame Rate On All Machines
         const u32 now = device->getTimer()->getTime();
         const f32 frameDeltaTime = (f32)(now - then) / 1000.f; // Time in seconds
         then = now;
+        /*
         core::vector3df nodePosition = node->getPosition();
         if(eventReceiver.isKeyDown(irr::KEY_KEY_S))
         {
@@ -135,12 +132,13 @@ int main()
                 v.Y += 5.0f;
                 node -> setRotation(v);
         }
+        */
         if(eventReceiver.isKeyDown(irr::KEY_KEY_Q))
         {
                 device -> drop();
                 return 50;
         }
-        */
+        
         if (device->isWindowActive())
         {
             driver->beginScene(true, true, SColor(255,100,101,140));

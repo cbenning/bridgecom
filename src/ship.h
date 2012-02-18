@@ -22,6 +22,6 @@ private:
     IAnimatedMeshSceneNode* node;
 
 public:
-    Ship(ISceneManager* smgr, const int model);
+    Ship(ISceneManager* smgr, IVideoDriver* driver, const int model);
 
 };
