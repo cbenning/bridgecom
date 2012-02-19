@@ -5,18 +5,36 @@
 <body>
     <name>The Sun</name>
     <type>star</type>
-    <radius>150</radius>
+    <radius>200</radius>
     <texture>yellow_sun.jpg</texture> 
     <orbit_radius>0</orbit_radius>
     <orbit_speed>5</orbit_speed>
     <bright>7</bright>
     <children>
         <body>
+            <name>Mercury</name>
+            <type>planet</type> 
+            <radius>15</radius>
+            <texture>mercury.jpg</texture>
+            <orbit_radius>400</orbit_radius>
+            <orbit_speed>5</orbit_speed>
+            <bright>2</bright>
+        </body>
+        <body>
+            <name>Venus</name>
+            <type>planet</type> 
+            <radius>30</radius>
+            <texture>venus.jpg</texture>
+            <orbit_radius>700</orbit_radius>
+            <orbit_speed>5</orbit_speed>
+            <bright>2</bright>
+        </body>
+        <body>
             <name>Terra</name>
             <type>planet</type>
-            <radius>50</radius>
+            <radius>40</radius>
             <texture>terra.jpg</texture>
-            <orbit_radius>400</orbit_radius>
+            <orbit_radius>1200</orbit_radius>
             <orbit_speed>5</orbit_speed>
             <bright>2</bright>
             <children>
@@ -36,7 +54,43 @@
             <type>planet</type> 
             <radius>30</radius>
             <texture>mars.jpg</texture>
-            <orbit_radius>600</orbit_radius>
+            <orbit_radius>1500</orbit_radius>
+            <orbit_speed>5</orbit_speed>
+            <bright>2</bright>
+        </body>
+        <body>
+            <name>Jupiter</name>
+            <type>planet</type> 
+            <radius>90</radius>
+            <texture>jupiter.jpg</texture>
+            <orbit_radius>2000</orbit_radius>
+            <orbit_speed>5</orbit_speed>
+            <bright>2</bright>
+        </body>
+        <body>
+            <name>Saturn</name>
+            <type>planet</type> 
+            <radius>70</radius>
+            <texture>saturn.jpg</texture>
+            <orbit_radius>2400</orbit_radius>
+            <orbit_speed>5</orbit_speed>
+            <bright>2</bright>
+        </body>
+        <body>
+            <name>Uranus</name>
+            <type>planet</type> 
+            <radius>50</radius>
+            <texture>uranus.jpg</texture>
+            <orbit_radius>2700</orbit_radius>
+            <orbit_speed>5</orbit_speed>
+            <bright>2</bright>
+        </body>
+        <body>
+            <name>Neptune</name>
+            <type>planet</type> 
+            <radius>45</radius>
+            <texture>neptune.jpg</texture>
+            <orbit_radius>3000</orbit_radius>
             <orbit_speed>5</orbit_speed>
             <bright>2</bright>
         </body>
