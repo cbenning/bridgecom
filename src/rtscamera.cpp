@@ -12,7 +12,7 @@ RTSCamera::RTSCamera(IrrlichtDevice* devicepointer,ISceneNode* parent,ISceneMana
    UpVector.set(0.0f, 1.0f, 0.0f); 
 
    // set default projection 
-   Fovy = core::PI / 2.5f;   // Field of view, in radians. 
+   Fovy = core::PI / 2.0f;   // Field of view, in radians. 
    Aspect = 4.0f / 3.0f;   // Aspect ratio. 
    ZNear = 1.0f;      // value of the near view-plane. 
    ZFar = 100000.0f;      // Z-value of the far view-plane. 

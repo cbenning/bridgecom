@@ -27,8 +27,8 @@ System::System(ISceneManager* smgr,IVideoDriver* driver, std::string fileName)
 
     xml_document doc;
     xml_parse_result result = doc.load_file((DATA_SYSTEM_DIR+fileName).c_str());
-    
-    rootBody = processRoot(doc);
+    xml_node sysNode = doc.child("system");
+    rootBody = processRoot(sysNode);
 
 }
 
@@ -41,10 +41,9 @@ void System::buildSystem()
 }
 
 
-Body* System::processRoot(xml_document doc)
+Body* System::processRoot(pugi::xml_node sysNode)
 {
-    xml_node tmpNode;
-    xml_node sysNode = doc.child("system");
+    xml_node rootNode,tmpNode;
     this->name = sysNode.child_value("name");
     cout << "System Name: " << this->name << "\n";
     this->backdrop = sysNode.child_value("backdrop");
@@ -52,24 +51,62 @@ Body* System::processRoot(xml_document doc)
     
     //Deal with the root node
     rootNode = sysNode.child("body");
-    std::string tmpName = tmpNode.child_value("name");
-    std::string tmpType = tmpNode.child_value("type");
-    int tmpRadius = atoi(tmpNode.child_value("radius"));
-    std::string tmpTexture = tmpNode.child_value("texture");
-    core::vector3df tmpDefaultPos = core::vector3df(0.0f,0.0f,0.0f);
+    std::string tmpName = rootNode.child_value("name");
+    std::string tmpType = rootNode.child_value("type");
+    int tmpRadius = atoi(rootNode.child_value("radius"));
+    std::string tmpTexture = rootNode.child_value("texture");
     int tmpOrbitRadius = 0;
     int tmpOrbitSpeed = 0;
-    int tmpBrightness = atoi(tmpNode.child_value("bright"));
+    int tmpBrightness = atoi(rootNode.child_value("bright"));
+
+    core::vector3df tmpDefaultPos = core::vector3df(0.0f,0.0f,0.0f);
 
     rootBody = new Body(this->smgr,this->driver,tmpDefaultPos,tmpRadius,tmpName,tmpName,tmpOrbitRadius,tmpOrbitSpeed,NULL,tmpTexture,tmpBrightness);
 
     tmpNode = rootNode.child("children").first_child();
     bool morePlanets = true;
-    Body* tmpBody,tmpRoot;
+    Body* tmpBody, *tmpRoot;
 
-    while(morePlanets){
-        rootBody.addChild(processChild(tmpNode,rootBody));
-        
+    while(tmpNode && morePlanets){
+        rootBody->addChild(processChild(tmpNode,rootBody));
+        if(tmpNode.next_sibling()){
+            tmpNode = tmpNode.next_sibling();
+            continue;
+        }
+        else{
+            morePlanets=false;
+        }
+    }
+    
+    return rootBody;
+    
+}
+
+
+Body* System::processChild(pugi::xml_node tmpRoot, Body* parent)
+{
+    //Deal with the root node
+    xml_node tmpNode;
+    std::string tmpName = tmpRoot.child_value("name");
+    std::string tmpType = tmpRoot.child_value("type");
+    int tmpRadius = atoi(tmpRoot.child_value("radius"));
+    std::string tmpTexture = tmpRoot.child_value("texture");
+    int tmpOrbitRadius = atoi(tmpRoot.child_value("orbit_radius"));
+    int tmpOrbitSpeed = atoi(tmpRoot.child_value("orbit_speed"));
+    int tmpBrightness = atoi(tmpRoot.child_value("bright"));
+
+    
+    core::vector3df tmpDefaultPos = parent->getPosition();
+    tmpDefaultPos.X += tmpOrbitRadius;
+    
+    //core::vector3df(tmpOrbitRadius,0.0f,0.0f);
+
+    Body* rootBody = new Body(this->smgr,this->driver,tmpDefaultPos,tmpRadius,tmpName,tmpName,tmpOrbitRadius,tmpOrbitSpeed,parent,tmpTexture,tmpBrightness);
+    tmpNode = tmpRoot.child("children").first_child();
+    bool morePlanets = true;
+
+    while(tmpNode && morePlanets){
+        rootBody->addChild(processChild(tmpNode,rootBody));
         if(tmpNode.next_sibling()){
             tmpNode = tmpNode.next_sibling();
             continue;
@@ -80,38 +117,7 @@ Body* System::processRoot(xml_document doc)
     }
 
     return rootBody;
-
 }
 
 
-Body* System::processChild(xml_node tmpRoot, Body* parent)
-{
-    //Deal with the root node
-    std::string tmpName = tmpRoot.child_value("name");
-    std::string tmpType = tmpRoot.child_value("type");
-    int tmpRadius = atoi(tmpRoot.child_value("radius"));
-    std::string tmpTexture = tmpRoot.child_value("texture");
-    core::vector3df tmpDefaultPos = core::vector3df(0.0f,0.0f,0.0f);
-    int tmpOrbitRadius = atoi(tmpRoot.child_value("orbit_radius"));
-    int tmpOrbitSpeed = atoi(tmpRoot.child_value("orbit_speed"));
-    int tmpBrightness = atoi(tmpRoot.child_value("bright"));
 
-    Body* rootBody = new Body(this->smgr,this->driver,tmpDefaultPos,tmpRadius,tmpName,tmpName,tmpOrbitRadius,tmpOrbitSpeed,parent,tmpTexture,tmpBrightness);
-    tmpNode = tmpRoot.child("children").first_child();
-    bool morePlanets = true;
-
-    while(morePlanets){
-        rootBody.addChild(processChild(tmpNode,rootBody));
-        
-        if(rootNode.next_sibling()){
-            tmpNode = tmpNode.next_sibling();
-            continue;
-        }
-        else{
-            morePlanets=false;
-        }
-    }
-
-    return rootBody;
-
-}

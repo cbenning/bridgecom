@@ -7,7 +7,6 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, const int model)
 {
 
     //TODO: Make this better. suck it from a file?
-    //shipModel[0] = "ship1.b3d";
     shipModel[0] = "ship2.b3d";
 
     cout<<(MODEL_DIR+shipModel[model]).c_str();

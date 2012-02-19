@@ -14,9 +14,11 @@ Body::Body(ISceneManager* smgr,IVideoDriver* driver, core::vector3df position, c
     this->numChildren=0;
     this->smgr=smgr;
     this->driver=driver;
-    this->position=position;
+    this->defaultPosition=position;
     this->texture=texture;
     this->brightness=brightness;
+
+    cout << "Created " << this->name << " with " << this->texture << "\n";
 
 }
 
@@ -33,14 +35,22 @@ void Body::buildBody()
 	this->node = this->smgr->addSphereSceneNode(this->radius, PLANET_POLY_COUNT);
     if (node)
     {
-        this->node->setPosition(this->position);
+        this->node->setPosition(this->defaultPosition);
         std::string tmpTexture = IMG_DIR+this->texture;
         this->node->setMaterialTexture(0, this->driver->getTexture(tmpTexture.c_str()));
         this->node->setMaterialFlag(EMF_LIGHTING, false); // enable dynamic lighting
     }
     else{
         cout<<"Failed to setup the body";
+        return;
     }
-    //TODO Also build chrildren
 
+    int i;
+    for(i = 0; i< this->numChildren; i++){
+        this->children[i]->buildBody();
+    }
+    
+}
+core::vector3df Body::getPosition(){
+    return this->defaultPosition;
 }

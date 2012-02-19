@@ -6,7 +6,9 @@
     <name>The Sun</name>
     <type>star</type>
     <radius>150</radius>
-    <texture>yellow_sun.jpg</texture>
+    <texture>yellow_sun.jpg</texture> 
+    <orbit_radius>0</orbit_radius>
+    <orbit_speed>5</orbit_speed>
     <bright>7</bright>
     <children>
         <body>

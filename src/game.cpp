@@ -84,12 +84,11 @@ int main()
     System* solSys = new System(smgr,driver,"sol.xml");
     solSys->buildSystem();
 
-    RTSCamera* camera = new RTSCamera(device,smgr->getRootSceneNode(),smgr,1,200.0f, 2.0f,2.0f);
+    RTSCamera* camera = new RTSCamera(device,smgr->getRootSceneNode(),smgr,1,200.0f, 100.0f,2.0f);
     camera->setPosition(vector3df(250,250,0)); 
     camera->setRotation(vector3df(0,0,0)); 
 
     int lastFPS = -1;
-
     // In order to do framerate independent movement, we have to know
     // how long it was since the last frame
     u32 then = device->getTimer()->getTime();

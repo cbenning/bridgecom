@@ -28,12 +28,14 @@ private:
     ISceneNode* node;
     ISceneManager* smgr;
     IVideoDriver* driver;
-    core::vector3df position;
+    core::vector3df defaultPosition;
     std::string texture;
     int brightness;
 
 public:
     Body(ISceneManager* smgr, IVideoDriver* driver, core::vector3df position, const int radius, std::string name, std::string type, int orbitRadius, int orbitSpeed, Body* parentBody, std::string texture, int brightness);
+    ~Body();
     void addChild(Body* child);
     void buildBody();
+    core::vector3df getPosition();
 };

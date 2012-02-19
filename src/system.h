@@ -1,4 +1,6 @@
 
+#include "pugixml/pugixml.hpp"
+
 class System
 {
 private:
@@ -8,11 +10,10 @@ private:
     Body* rootBody;
     ISceneManager* smgr;
     IVideoDriver* driver;
-    Body* processRoot(xml_document doc);
-    Body* processChild(xml_node tmpRoot, Body* parent);
 
 public:
     System(ISceneManager* smgr, IVideoDriver* driver, std::string fileName);
     void buildSystem();
-
+    Body* processRoot(pugi::xml_node sysNode);
+    Body* processChild(pugi::xml_node tmpRoot, Body* parent);
 };
