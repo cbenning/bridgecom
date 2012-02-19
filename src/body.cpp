@@ -2,8 +2,7 @@
 #include "body.h"
 #include "def.h"
 
-
-Body::Body(ISceneManager* smgr,IVideoDriver* driver, core::vector3df position, const int radius, std::string name, std::string type, int orbitRadius, int orbitSpeed, Body* parentBody, std::string texture, bool bright)
+Body::Body(ISceneManager* smgr,IVideoDriver* driver, core::vector3df position, const int radius, std::string name, std::string type, int orbitRadius, int orbitSpeed, Body* parentBody, std::string texture, int brightness)
 {
 
     this->radius=radius;
@@ -12,22 +11,36 @@ Body::Body(ISceneManager* smgr,IVideoDriver* driver, core::vector3df position, c
     this->orbitRadius=orbitRadius;
     this->orbitSpeed=orbitSpeed;
     this->parentBody=parentBody;
+    this->numChildren=0;
+    this->smgr=smgr;
+    this->driver=driver;
+    this->position=position;
+    this->texture=texture;
+    this->brightness=brightness;
 
-	node = smgr->addSphereSceneNode(radius, PLANET_POLY_COUNT);
+}
+
+void Body::addChild(Body* child)
+{
+    this->children.resize(this->numChildren+1);
+    this->children[this->numChildren]=child;
+    this->numChildren++;
+}
+
+void Body::buildBody()
+{
+
+	this->node = this->smgr->addSphereSceneNode(this->radius, PLANET_POLY_COUNT);
     if (node)
     {
-        
-        node->setPosition(position);
-        node->setMaterialTexture(0, driver->getTexture(texture.c_str()));
-        node->setMaterialFlag(EMF_LIGHTING, true); // enable dynamic lighting
-        node->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
-        // add white light
-        if(bright)
-            smgr->addLightSceneNode(0, position, video::SColorf(1.0f, 1.0f, 1.0f));
-        // set ambient light
-        //smgr->setAmbientLight(video::SColor(0,60,60,60));
+        this->node->setPosition(this->position);
+        std::string tmpTexture = IMG_DIR+this->texture;
+        this->node->setMaterialTexture(0, this->driver->getTexture(tmpTexture.c_str()));
+        this->node->setMaterialFlag(EMF_LIGHTING, false); // enable dynamic lighting
     }
     else{
         cout<<"Failed to setup the body";
     }
+    //TODO Also build chrildren
+
 }

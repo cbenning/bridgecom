@@ -18,8 +18,8 @@ class Ship
 {
 private:
     std::string shipModel[MAX_SHIP_MODELS];
-    IAnimatedMesh* mesh;
-    IAnimatedMeshSceneNode* node;
+    scene::IAnimatedMesh* mesh;
+    scene::IAnimatedMeshSceneNode* node;
 
 public:
     Ship(ISceneManager* smgr, IVideoDriver* driver, const int model);

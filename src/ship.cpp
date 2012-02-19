@@ -12,10 +12,6 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, const int model)
 
     cout<<(MODEL_DIR+shipModel[model]).c_str();
     mesh = smgr->getMesh((MODEL_DIR+shipModel[model]).c_str());
-    if (!mesh)
-    {
-        //device->drop();
-    }
     node = smgr->addAnimatedMeshSceneNode(mesh);
     
     if (node)

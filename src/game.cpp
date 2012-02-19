@@ -3,6 +3,8 @@
 #include "rtscamera.h"
 #include "ship.h"
 #include "body.h"
+#include "def.h"
+#include "system.h"
 
 using namespace irr;
 using namespace core;
@@ -68,7 +70,7 @@ int main()
     if (!device)
             return 1;
 
-    device->setWindowCaption(L"bridgecom");
+    device->setWindowCaption(APP_WINDOW_CAPTION);
 
     IVideoDriver* driver = device->getVideoDriver();
     ISceneManager* smgr = device->getSceneManager();
@@ -76,14 +78,14 @@ int main()
     
     guienv->addStaticText(L"Current Input",rect<s32>(10,10,260,22), true);
             
-
-    smgr->addSkyDomeSceneNode(driver->getTexture("../media/img/starfield.png"),32,	32, 1.0f, 2.0f);
     smgr->setAmbientLight(video::SColorf(0.3,0.3,0.3,1));
-    Ship myship = Ship(smgr,driver, 0);
-    //Planet p = Planet(smgr,driver,vector3df(-100,-30,-30),50,32,0);
+    //Ship myship = Ship(smgr,driver,0);
+
+    System* solSys = new System(smgr,driver,"sol.xml");
+    solSys->buildSystem();
 
     RTSCamera* camera = new RTSCamera(device,smgr->getRootSceneNode(),smgr,1,200.0f, 2.0f,2.0f);
-    camera->setPosition(vector3df(30,30,0)); 
+    camera->setPosition(vector3df(250,250,0)); 
     camera->setRotation(vector3df(0,0,0)); 
 
     int lastFPS = -1;
