@@ -70,7 +70,7 @@ int main()
     if (!device)
             return 1;
 
-    device->setWindowCaption(APP_WINDOW_CAPTION);
+    device->setWindowCaption((wchar_t*)APP_WINDOW_CAPTION);
 
     IVideoDriver* driver = device->getVideoDriver();
     ISceneManager* smgr = device->getSceneManager();
