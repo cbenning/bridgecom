@@ -56,12 +56,12 @@ Body* System::processRoot(pugi::xml_node sysNode)
     int tmpRadius = atoi(rootNode.child_value("radius"));
     std::string tmpTexture = rootNode.child_value("texture");
     int tmpOrbitRadius = 0;
-    int tmpOrbitSpeed = 0;
+    f32 tmpOrbitSpeed = 0.0;
     int tmpBrightness = atoi(rootNode.child_value("bright"));
 
     core::vector3df tmpDefaultPos = core::vector3df(0.0f,0.0f,0.0f);
 
-    rootBody = new Body(this->smgr,this->driver,tmpDefaultPos,tmpRadius,tmpName,tmpName,tmpOrbitRadius,tmpOrbitSpeed,NULL,tmpTexture,tmpBrightness);
+    rootBody = new Body(this->smgr,this->driver,tmpDefaultPos,tmpRadius,tmpName,tmpType,tmpOrbitRadius,tmpOrbitSpeed,NULL,tmpTexture,tmpBrightness);
 
     tmpNode = rootNode.child("children").first_child();
     bool morePlanets = true;
@@ -92,7 +92,7 @@ Body* System::processChild(pugi::xml_node tmpRoot, Body* parent)
     int tmpRadius = atoi(tmpRoot.child_value("radius"));
     std::string tmpTexture = tmpRoot.child_value("texture");
     int tmpOrbitRadius = atoi(tmpRoot.child_value("orbit_radius"));
-    int tmpOrbitSpeed = atoi(tmpRoot.child_value("orbit_speed"));
+    f32 tmpOrbitSpeed = atof(tmpRoot.child_value("orbit_speed"));
     int tmpBrightness = atoi(tmpRoot.child_value("bright"));
 
     

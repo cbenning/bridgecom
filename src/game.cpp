@@ -79,7 +79,7 @@ int main()
     guienv->addStaticText(L"Current Input",rect<s32>(10,10,260,22), true);
             
     smgr->setAmbientLight(video::SColorf(0.3,0.3,0.3,1));
-    //Ship myship = Ship(smgr,driver,0);
+    Ship myship = Ship(smgr,driver,0);
 
     System* solSys = new System(smgr,driver,"sol.xml");
     solSys->buildSystem();

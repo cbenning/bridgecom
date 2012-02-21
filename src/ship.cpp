@@ -19,7 +19,7 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, const int model)
         node->setMaterialFlag(EMF_LIGHTING, false);
         node->setMaterialFlag(EMF_WIREFRAME, true);
     } 
-    node->setPosition(vector3df(0,0,0));
+    node->setPosition(vector3df(400,400,400));
     node->setRotation(vector3df(0,-90,0));
 
 }
