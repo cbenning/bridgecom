@@ -39,7 +39,6 @@ private:
 
 public:
     Body(ISceneManager* smgr, IVideoDriver* driver, core::vector3df position, const int radius, std::string name, std::string type, int orbitRadius, f32 orbitSpeed, Body* parentBody, std::string texture, int brightness);
-    ~Body();
     void addChild(Body* child);
     void buildBody();
     core::vector3df getPosition();
