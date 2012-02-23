@@ -9,7 +9,7 @@
     <texture>yellow_sun.jpg</texture> 
     <orbit_radius>0</orbit_radius>
     <orbit_speed>0</orbit_speed>
-    <bright>7</bright>
+    <bright>4</bright>
     <children>
         <body>
             <name>Mercury</name>

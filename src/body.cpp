@@ -42,7 +42,7 @@ void Body::buildBody()
 
         cout << "Type: " << this->type << "\n";
         if(this->type=="star"){
-            ILightSceneNode* light1 = this->smgr->addLightSceneNode(0,this->getPosition(),video::SColorf(100.0f,100.0f,100.0f),this->radius,1); 
+            ILightSceneNode* light1 = this->smgr->addLightSceneNode(0,this->getPosition(),video::SColorf(this->brightness,this->brightness,this->brightness),this->radius,1); 
             this->node->setMaterialFlag(EMF_LIGHTING, false); // enable dynamic lighting
         }
         else{
