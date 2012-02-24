@@ -6,6 +6,7 @@
 #include "def.h"
 #include "system.h"
 #include "event.h"
+#include "Box2D.h"
 
 using namespace irr;
 using namespace core;

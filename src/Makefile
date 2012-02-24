@@ -6,18 +6,17 @@ LDLIBS := -lIrrlicht -lGL -lXxf86vm -lXext -lX11 -lpng -ljpeg
 BIN_OUTPUT := ../bin/
 BIN_FILE := bridgecom
 
-##all: game.o rtscamera.o ship.o body.o system.o pugixml/pugixml.o libNewton.a 	
-all: game.o rtscamera.o ship.o body.o system.o pugixml/pugixml.o event.o
+linux64: game.o rtscamera.o ship.o body.o system.o pugixml/pugixml.o event.o ../lib/linux64/libBox2d.a
 	mkdir -p $(BIN_OUTPUT)
 	$(CC) $^ $(CFLAGS) $(LDLIBS) -o $(BIN_OUTPUT)$(BIN_FILE)
 	cp template_runscript.sh ../run.sh
 	chmod +x ../run.sh
 
-debug: game.o rtscamera.o ship.o body.o system.o pugixml/pugixml.o event.o
-	mkdir -p $(BIN_OUTPUT)
-	$(CC) $^ $(DEBUG_CFLAGS) $(LDLIBS) -o $(BIN_OUTPUT)$(BIN_FILE)
-	cp template_debugscript.sh ../run.sh
-	chmod +x ../run.sh
+#debug: game.o rtscamera.o ship.o body.o system.o pugixml/pugixml.o event.
+#	mkdir -p $(BIN_OUTPUT)
+#	$(CC) $^ $(DEBUG_CFLAGS) $(LDLIBS) -o $(BIN_OUTPUT)$(BIN_FILE)
+#	cp template_debugscript.sh ../run.sh
+#	chmod +x ../run.sh
 
 game.o: game.cpp
 
