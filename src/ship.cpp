@@ -5,7 +5,14 @@
 Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, const int model)
 {
 
-    this->movementSpeed=1.0f;
+    this->shipForwardThrust=1.0f;
+    this->shipTurnThrust=0.6f;
+    this->shipStopThrust=0.4f;
+
+    //TODO: Fixme
+    this->shipMovement = vector3df(0,0,0);
+
+
     //TODO: Make this better. suck it from a file?
     shipModel[0] = "ship2.b3d";
 
@@ -19,12 +26,12 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, const int model)
         node->setMaterialFlag(EMF_LIGHTING, false);
         node->setMaterialFlag(EMF_WIREFRAME, true);
     } 
-    node->setPosition(vector3df(400,400,400));
-    node->setRotation(vector3df(0,-90,0));
+    this->node->setPosition(vector3df(400.0f,400.0f,400.0f)); //TODO
+    this->node->setRotation(vector3df(0,-90,0));
 }
 
 core::vector3df Ship::getPosition(){
-    this->node->getPosition();
+    return this->node->getPosition();
 }
 
 void Ship::setPosition(core::vector3df pos){
@@ -32,13 +39,28 @@ void Ship::setPosition(core::vector3df pos){
 }
 
 core::vector3df Ship::getRotation(){
-    this->node->getRotation();
+    return this->node->getRotation();
 }
 
 void Ship::setRotation(core::vector3df rot){
     this->node->setRotation(rot);
 }
 
-f32 Ship::getMovementSpeed(){
-    this->movementSpeed;
+core::vector3df Ship::getShipMovement(){
+    return this->shipMovement;
 }
+
+void Ship::applyForwardThrust(){
+    //this>
+}
+
+core::vector3df Ship::getCamFollowPosition(){
+    vector3df tmp = this->getPosition();
+    vector3df tmp2 = vector3df(tmp.X,tmp.Y+50,tmp.Z);
+    return tmp2;
+}
+
+/*core::vector3df Ship::getCamFollowRotation(){
+    vector3df tmp = this->getPosition();
+    return vector3df(tmp.X,tmp.Y,-100);
+}*/

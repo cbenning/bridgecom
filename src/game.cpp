@@ -44,12 +44,14 @@ int main()
     System* solSys = new System(smgr,driver,"sol.xml");
     solSys->buildSystem();
 
-    RTSCamera* camera = new RTSCamera(device,smgr->getRootSceneNode(),smgr,1,200.0f, 100.0f,2.0f);
-    camera->setPosition(vector3df(250,250,0)); 
-    camera->setRotation(vector3df(0,0,0)); 
+    //RTSCamera* camera = new RTSCamera(device,smgr->getRootSceneNode(),smgr,1,200.0f, 100.0f,2.0f);
+    //camera->setPosition(vector3df(250,250,0)); 
+    //camera->setRotation(vector3df(0,0,0)); 
 
     //smgr->setAmbientLight(video::SColorf(0.3,0.3,0.3,1));
     Ship* myShip = new Ship(smgr,driver,0);
+    ICameraSceneNode* camera = smgr->addCameraSceneNode(0);
+    camera->bindTargetAndRotation(true);
 
     u32 then = device->getTimer()->getTime();
     while(device->run())
@@ -60,6 +62,11 @@ int main()
 
         if (device->isWindowActive())
         {
+            camera->setPosition(myShip->getCamFollowPosition()); 
+            camera->setTarget(myShip->getPosition()); 
+            vector3df tmp1 = myShip->getCamFollowPosition();
+            vector3df tmp2 = myShip->getPosition();
+            cout << "CP: "<<tmp1.X<<","<<tmp1.Y<<","<<tmp1.Z<<"  CT: " <<tmp2.X<<","<<tmp2.Y<<","<<tmp2.Z<<"\n";
             driver->beginScene(true, true, SColor(255,100,101,140));
             smgr->drawAll();
             guienv->drawAll();

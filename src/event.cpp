@@ -44,6 +44,7 @@ int GameEventReceiver::handleInput(u32 then, IrrlichtDevice *device, Ship* shipN
         frameDeltaTime = (f32)(now - then) / 1000.f; // Time in seconds
         then = now;
         nodePosition = shipNode->getPosition();
+        /*
         if(this->isKeyDown(irr::KEY_KEY_S))
         {
                 cout<<"S\n";
@@ -72,6 +73,7 @@ int GameEventReceiver::handleInput(u32 then, IrrlichtDevice *device, Ship* shipN
                 v.Y += 5.0f;
                 shipNode->setRotation(v);
         }
+        */
         if(this->isKeyDown(irr::KEY_KEY_Q))
         {
                 device -> drop();

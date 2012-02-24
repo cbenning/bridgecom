@@ -3,7 +3,8 @@ PWD := $(shell pwd)
 CC=g++
 CFLAGS := -O3 -Wall 
 DEBUG_CFLAGS := -g -Wall 
-LDLIBS := -lIrrlicht -lGL -lXxf86vm -lXext -lX11 -lpng -ljpeg -L../lib/linux64/libBox2d.a
+//LDLIBS := -lIrrlicht -lGL -lXxf86vm -lXext -lX11 -lpng -ljpeg -L../lib/linux64/libBox2d.a
+LDLIBS := -lIrrlicht -lGL -lXxf86vm -lXext -lX11 -lpng -ljpeg
 BIN_OUTPUT := ../bin/
 BIN_FILE := bridgecom
 
