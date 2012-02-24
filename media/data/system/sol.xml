@@ -1,7 +1,7 @@
 <?xml versio="1.0" ?>
 <system>
 <name>Sol</name>
-<backdrop>starfield.jpg</backdrop>
+<backdrop>starfield2.png</backdrop>
 <body>
     <name>The Sun</name>
     <type>star</type>

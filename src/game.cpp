@@ -66,7 +66,7 @@ int main()
             camera->setTarget(myShip->getPosition()); 
             vector3df tmp1 = myShip->getCamFollowPosition();
             vector3df tmp2 = myShip->getPosition();
-            cout << "CP: "<<tmp1.X<<","<<tmp1.Y<<","<<tmp1.Z<<"  CT: " <<tmp2.X<<","<<tmp2.Y<<","<<tmp2.Z<<"\n";
+            //cout << "CP: "<<tmp1.X<<","<<tmp1.Y<<","<<tmp1.Z<<"  CT: " <<tmp2.X<<","<<tmp2.Y<<","<<tmp2.Z<<"\n";
             driver->beginScene(true, true, SColor(255,100,101,140));
             smgr->drawAll();
             guienv->drawAll();

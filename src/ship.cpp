@@ -56,7 +56,7 @@ void Ship::applyForwardThrust(){
 
 core::vector3df Ship::getCamFollowPosition(){
     vector3df tmp = this->getPosition();
-    vector3df tmp2 = vector3df(tmp.X,tmp.Y+50,tmp.Z);
+    vector3df tmp2 = vector3df(tmp.X-20,tmp.Y-50,tmp.Z);
     return tmp2;
 }
 

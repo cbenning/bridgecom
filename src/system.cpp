@@ -36,7 +36,7 @@ void System::buildSystem()
 {
     //TODO get rid of magic nums
     std::string tmp = IMG_DIR+this->backdrop;
-    this->smgr->addSkyDomeSceneNode(this->driver->getTexture(tmp.c_str()),32,32,1.0f,2.0f);
+    this->smgr->addSkyDomeSceneNode(this->driver->getTexture(tmp.c_str()),32,32,0.9f,1.0f);
     this->rootBody->buildBody();
 }
 
