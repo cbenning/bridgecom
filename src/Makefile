@@ -1,12 +1,13 @@
 
+PWD := $(shell pwd)
 CC=g++
 CFLAGS := -O3 -Wall 
 DEBUG_CFLAGS := -g -Wall 
-LDLIBS := -lIrrlicht -lGL -lXxf86vm -lXext -lX11 -lpng -ljpeg 
+LDLIBS := -lIrrlicht -lGL -lXxf86vm -lXext -lX11 -lpng -ljpeg -L../lib/linux64/libBox2d.a
 BIN_OUTPUT := ../bin/
 BIN_FILE := bridgecom
 
-linux64: game.o rtscamera.o ship.o body.o system.o pugixml/pugixml.o event.o ../lib/linux64/libBox2d.a
+linux64: game.o rtscamera.o ship.o body.o system.o pugixml/pugixml.o event.o 
 	mkdir -p $(BIN_OUTPUT)
 	$(CC) $^ $(CFLAGS) $(LDLIBS) -o $(BIN_OUTPUT)$(BIN_FILE)
 	cp template_runscript.sh ../run.sh
@@ -18,7 +19,8 @@ linux64: game.o rtscamera.o ship.o body.o system.o pugixml/pugixml.o event.o ../
 #	cp template_debugscript.sh ../run.sh
 #	chmod +x ../run.sh
 
-game.o: game.cpp
+game.o: game.cpp 
+	$(CC) $(CFLAGS) -I. -c game.cpp
 
 rtscamera.o: rtscamera.cpp
 
@@ -31,6 +33,8 @@ system.o: system.cpp
 pugixml/pugixml.o: pugixml/pugixml.cpp
 
 event.o: event.cpp
+
+
 
 #CSceneNodeAnimatorMovableFlyCircle.o: CSceneNodeAnimatorMovableFlyCircle.cpp
 
