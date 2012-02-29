@@ -1,6 +1,5 @@
 
 #include <irrlicht.h>
-//#include "ship.h"
 
 using namespace irr; 
 using namespace core; 
@@ -9,9 +8,9 @@ using namespace video;
 using namespace io; 
 using namespace gui; 
 
-
 class GameEventReceiver : public IEventReceiver
 {
+
 private:
     u32 then;
     u32 now;

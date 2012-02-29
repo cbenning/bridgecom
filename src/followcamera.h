@@ -1,5 +1,5 @@
-#ifndef __RTSCAMERA__ 
-#define __RTSCAMERA__ 
+#ifndef __FOLLOWCAMERA__ 
+#define __FOLLOWCAMERA__ 
 
 #include <irrlicht.h> 
 
@@ -10,13 +10,13 @@ using namespace video;
 using namespace io; 
 using namespace gui;
 
-class RTSCamera : public ICameraSceneNode 
+class FollowCamera : public ICameraSceneNode 
 { 
    public: 
-      RTSCamera(IrrlichtDevice* devicepointer,ISceneNode* parent,ISceneManager* smgr,s32 id, 
+      FollowCamera(IrrlichtDevice* devicepointer,ISceneNode* parent,ISceneManager* smgr,s32 id, 
          f32 rotateSpeed = -1000.0f,f32 zoomSpeed = 1000.0f,f32 translationSpeed = 1000.0f); 
 
-      virtual ~RTSCamera(); 
+      virtual ~FollowCamera(); 
 
       //Events 
       virtual void render(); 

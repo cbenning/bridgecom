@@ -26,7 +26,8 @@ System::System(ISceneManager* smgr,IVideoDriver* driver, std::string fileName)
     this->driver = driver;
 
     xml_document doc;
-    xml_parse_result result = doc.load_file((DATA_SYSTEM_DIR+fileName).c_str());
+    doc.load_file((DATA_SYSTEM_DIR+fileName).c_str());
+    //xml_parse_result result = doc.load_file((DATA_SYSTEM_DIR+fileName).c_str());
     xml_node sysNode = doc.child("system");
     rootBody = processRoot(sysNode);
 
@@ -65,7 +66,7 @@ Body* System::processRoot(pugi::xml_node sysNode)
 
     tmpNode = rootNode.child("children").first_child();
     bool morePlanets = true;
-    Body* tmpBody, *tmpRoot;
+    //Body* tmpBody, *tmpRoot;
 
     while(tmpNode && morePlanets){
         rootBody->addChild(processChild(tmpNode,rootBody));

@@ -1,6 +1,6 @@
 #include <irrlicht.h>
 #include <iostream>
-#include "rtscamera.h"
+#include "followcamera.h"
 #include "ship.h"
 #include "body.h"
 #include "def.h"
@@ -21,15 +21,30 @@ using namespace std;
 #pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
 #endif*/
 
-
-
-
 int main()
 {
 
     GameEventReceiver* eventReceiver = new GameEventReceiver();
+
+    //Windowed
 	IrrlichtDevice *device = createDevice( video::EDT_OPENGL, dimension2d<u32>(1280, 800), 32,false, false, false, eventReceiver);
 
+    //
+    // Box2D Stuff
+    //
+    b2Vec2 gravity = b2Vec2(0.0f,0.0f);
+    b2World* gameWorld = new b2World(gravity);
+    float32 timeStep = 1.0f / 60.f;
+    int32 velocityIterations = 10;
+    int32 positionIterations = 8;
+    gameWorld->Step(timeStep, velocityIterations, positionIterations);
+
+    /* Fullscreen
+    IrrlichtDevice *nulldevice = createDevice(video::EDT_NULL);
+    core::dimension2d<u32> deskres = nulldevice->getVideoModeList()->getDesktopResolution();
+    nulldevice -> drop();
+	IrrlichtDevice *device = createDevice( video::EDT_OPENGL, deskres, 32, true, false, false, eventReceiver);
+    */
     if (!device)
             return 1;
 
@@ -49,7 +64,7 @@ int main()
     //camera->setRotation(vector3df(0,0,0)); 
 
     //smgr->setAmbientLight(video::SColorf(0.3,0.3,0.3,1));
-    Ship* myShip = new Ship(smgr,driver,0);
+    Ship* myShip = new Ship(smgr,driver,gameWorld,0);
     ICameraSceneNode* camera = smgr->addCameraSceneNode(0);
     camera->bindTargetAndRotation(true);
 
@@ -64,8 +79,8 @@ int main()
         {
             camera->setPosition(myShip->getCamFollowPosition()); 
             camera->setTarget(myShip->getPosition()); 
-            vector3df tmp1 = myShip->getCamFollowPosition();
-            vector3df tmp2 = myShip->getPosition();
+            //vector3df tmp1 = myShip->getCamFollowPosition();
+            //vector3df tmp2 = myShip->getPosition();
             //cout << "CP: "<<tmp1.X<<","<<tmp1.Y<<","<<tmp1.Z<<"  CT: " <<tmp2.X<<","<<tmp2.Y<<","<<tmp2.Z<<"\n";
             driver->beginScene(true, true, SColor(255,100,101,140));
             smgr->drawAll();
