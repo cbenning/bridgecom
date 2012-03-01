@@ -52,7 +52,6 @@ void Body::buildBody()
 
         if(this->parentBody)
         {
-
             cout << this->name << ", Orbit speed: " << this->orbitSpeed << "Parent: " << this->parentBody->getName() << "\n";
             //cout << "Orbit speed: " << this->orbitSpeed << "\n";
             ISceneNodeAnimator* anim = smgr->createFlyCircleAnimator(this->parentBody->getPosition(), this->orbitRadius, this->orbitSpeed);
@@ -62,9 +61,6 @@ void Body::buildBody()
                 anim->drop();
             }
         }
-
-
-
     }
     else{
         cout<<"Failed to setup the body";
@@ -75,8 +71,8 @@ void Body::buildBody()
     for(i = 0; i< this->numChildren; i++){
         this->children[i]->buildBody();
     }
-    
 }
+
 core::vector3df Body::getPosition(){
     if(this->node==NULL){
         return this->defaultPosition;

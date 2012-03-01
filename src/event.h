@@ -23,5 +23,5 @@ private:
 
 public:
     GameEventReceiver();
-    int handleInput(u32 then, IrrlichtDevice *device, Ship* shipNode);
+    int handleInput(u32 then, u32 now, IrrlichtDevice *device, Ship* shipNode);
 };

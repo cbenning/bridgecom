@@ -35,33 +35,36 @@ bool GameEventReceiver::isKeyUp(EKEY_CODE keyCode)
     return !KeyDown[keyCode];
 }
  
-int GameEventReceiver::handleInput(u32 then, IrrlichtDevice *device, Ship* shipNode)
+int GameEventReceiver::handleInput(u32 then, u32 now, IrrlichtDevice *device, Ship* shipNode)
 {
     // Work Out A Frame Delta Time. This Allows For A Smooth Frame Rate On All Machines
-    now = device->getTimer()->getTime();
     frameDeltaTime = (f32)(now - then) / 1000.f; // Time in seconds
     then = now;
     nodePosition = shipNode->getPosition();
     
     if(this->isKeyDown(irr::KEY_KEY_S))
     {
-        cout<<"S\n";
+        //cout<<"S\n";
         //shipNode->setPosition(v);
     }
     if(this->isKeyDown(irr::KEY_KEY_W))
     {
-        cout<<"W\n";
-        //shipNode->setPosition(v);
+        //cout<<"W\n";
+        shipNode->applyForwardThrust();
     }
+    else{
+        shipNode->cancelForwardThrust();
+    }
+
     if(this->isKeyDown(irr::KEY_KEY_A))
     {
-        cout<<"A\n";
-        //shipNode->applyLeftThrust();
+        //cout<<"A\n";
+        shipNode->applyLeftThrust();
     }
     if(this->isKeyDown(irr::KEY_KEY_D))
     {
-        cout<<"D\n";
-        //shipNode->applyRightThrust();
+        //cout<<"D\n";
+        shipNode->applyRightThrust();
     }
     
     if(this->isKeyDown(irr::KEY_KEY_Q))

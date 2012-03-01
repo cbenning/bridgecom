@@ -21,6 +21,7 @@ class Ship
 private:
     std::string shipModel[MAX_SHIP_MODELS];
     f32 shipForwardThrust;
+    bool shipForwardThrustOn;
     f32 shipTurnThrust;
     f32 shipReverseThrust;
     core::vector3df shipMovement;
@@ -37,11 +38,17 @@ public:
     void setPosition(core::vector3df pos);
     core::vector3df getRotation();
     void setRotation(core::vector3df rot);
+    b2Vec2 get2DPosition();
+    void set2DPosition(b2Vec2 pos);
+    b2Vec2 get2DRotation();
+    void set2DRotation(b2Vec2 rot);
     core::vector3df getShipMovement();
     void applyForwardThrust();
+    void cancelForwardThrust();
     void applyReverseThrust();
     void applyLeftThrust();
     void applyRightThrust();
     core::vector3df getCamFollowPosition();
-
+    IAnimatedMeshSceneNode* getSceneNode();
+    void update();
 };

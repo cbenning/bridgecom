@@ -5,6 +5,7 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
 {
 
     this->shipForwardThrust=1.0f;
+    this->shipForwardThrustOn=false;
     this->shipTurnThrust=0.6f;
     this->shipReverseThrust=0.4f;
     this->gameWorld=gameWorld;
@@ -17,7 +18,7 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
 
     f32 defX = 400.0f;
     f32 defY = 400.0f;
-    f32 defZ = 400.0f;
+    f32 defZ = 0.0f;
 
     //
     // Irrlicht Stuff
@@ -38,6 +39,8 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
     //
     // Box2D stuff
     //
+
+    //Body Def
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(defX,defY);   // the body's origin position.
     bodyDef.angle = 0.25f * b2_pi;      // the body's angle in radians.
@@ -49,7 +52,22 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
     bodyDef.fixedRotation = false;
     bodyDef.userData = this;
     bodyDef.active = true;
+
+    //shape Def
+    b2PolygonShape dynamicBox;
+    dynamicBox.SetAsBox(1, 1);
+
+
+    //fixture def 
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &dynamicBox;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 0.1f;
+
+    //Fire it up
     this->dynamicBody = this->gameWorld->CreateBody(&bodyDef);
+    this->dynamicBody->CreateFixture(&fixtureDef);
+
     //myWorld->DestroyBody(dynamicBody);
     //dynamicBody = NULL;
 
@@ -71,12 +89,44 @@ void Ship::setRotation(core::vector3df rot){
     this->node->setRotation(rot);
 }
 
+b2Vec2 Ship::get2DPosition(){
+    vector3df tmp = this->node->getPosition();
+    return b2Vec2(tmp.X,tmp.Y);
+}
+
+void Ship::set2DPosition(b2Vec2 pos){
+    this->node->setPosition(vector3df(pos.x,pos.y,0.0f));
+}
+
+b2Vec2 Ship::get2DRotation(){
+    vector3df tmp = this->node->getRotation();
+    return b2Vec2(tmp.X,tmp.Y);
+}
+
+void Ship::set2DRotation(b2Vec2 rot){
+    this->node->setPosition(vector3df(rot.x,rot.y,0.0f));
+}
+
 core::vector3df Ship::getShipMovement(){
     return this->shipMovement;
 }
 
 void Ship::applyForwardThrust(){
-    return;
+    if(!this->shipForwardThrustOn){
+        cout << "Forward Thrust On\n";
+        b2Vec2 pos = this->dynamicBody->GetPosition();
+        cout << "dynbody X: " << pos.x << ", Y: " << pos.y << "\n";
+        this->shipForwardThrustOn = true;
+    }
+}
+
+void Ship::cancelForwardThrust(){
+    if(this->shipForwardThrustOn){
+        cout << "Forward Thrust Off\n"; 
+        b2Vec2 pos = this->dynamicBody->GetPosition();
+        cout << "dynbody X: " << pos.x << ", Y: " << pos.y << "\n";
+        this->shipForwardThrustOn = false;
+    }
 }
 
 void Ship::applyReverseThrust(){
@@ -86,21 +136,39 @@ void Ship::applyReverseThrust(){
 void Ship::applyLeftThrust(){
     vector3df rot = this->node->getRotation();
     //TODO: Do something more clever than this
-    rot.Y-=this->shipTurnThrust;
+    rot.Y-=this->shipTurnThrust/4;
     this->node->setRotation(rot);
 }
 
 void Ship::applyRightThrust(){
     vector3df rot = this->node->getRotation();
     //TODO: Do something more clever than this
-    rot.Y+=this->shipTurnThrust;
+    rot.Y+=this->shipTurnThrust/4;
     this->node->setRotation(rot);
 }
 
 core::vector3df Ship::getCamFollowPosition(){
-    vector3df tmp = this->getPosition();
-    vector3df tmp2 = vector3df(tmp.X-20,tmp.Y-50,tmp.Z);
+    //vector3df tmp = this->getPosition();
+    vector3df tmp2 = vector3df(20.0f,20.0f,0.0f);
     return tmp2;
+}
+
+IAnimatedMeshSceneNode* Ship::getSceneNode(){
+    return this->node;
+}
+
+void Ship::update(){
+
+    if(this->shipForwardThrustOn){
+        //b2Vec2 point = this->dynamicBody->GetPosition();
+        this->dynamicBody->ApplyForce(b2Vec2(50,0), this->dynamicBody->GetWorldCenter());
+    }
+
+    b2Vec2 pos = this->dynamicBody->GetPosition();
+    vector3df pos2 = this->getPosition();
+    this->node->setPosition(vector3df(pos.x,pos.y,0.0f));
+    //cout << "dynbody X: " << pos.x << ", Y: " << pos.y << "\n";
+    //cout << "node    X: " << pos2.X << ", Y: " << pos2.Y << "\n";
 }
 
 /*core::vector3df Ship::getCamFollowRotation(){

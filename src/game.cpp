@@ -54,6 +54,7 @@ int main()
     ISceneManager* smgr = device->getSceneManager();
     IGUIEnvironment* guienv = device->getGUIEnvironment();
     
+    //driver->enableClipPlane(1,true);
     guienv->addStaticText(L"Current Input",rect<s32>(10,10,260,22), true);
             
     System* solSys = new System(smgr,driver,"sol.xml");
@@ -67,30 +68,47 @@ int main()
     Ship* myShip = new Ship(smgr,driver,gameWorld,0);
     ICameraSceneNode* camera = smgr->addCameraSceneNode(0);
     camera->bindTargetAndRotation(true);
+    camera->setParent(myShip->getSceneNode());
+    camera->setPosition(myShip->getCamFollowPosition()); 
+    camera->setTarget(myShip->getPosition()); 
 
     u32 then = device->getTimer()->getTime();
+    u32 now;
+
     while(device->run())
     {
         
-        if(eventReceiver->handleInput(then,device,myShip) !=0)
+        now = device->getTimer()->getTime();
+
+        if(eventReceiver->handleInput(then,now,device,myShip) !=0)
             return -1;
 
-        if (device->isWindowActive())
-        {
-            camera->setPosition(myShip->getCamFollowPosition()); 
-            camera->setTarget(myShip->getPosition()); 
+        //if (device->isWindowActive())
+        //{
+            //camera->setPosition(myShip->getCamFollowPosition()); 
             //vector3df tmp1 = myShip->getCamFollowPosition();
             //vector3df tmp2 = myShip->getPosition();
             //cout << "CP: "<<tmp1.X<<","<<tmp1.Y<<","<<tmp1.Z<<"  CT: " <<tmp2.X<<","<<tmp2.Y<<","<<tmp2.Z<<"\n";
             driver->beginScene(true, true, SColor(255,100,101,140));
+
+            // Instruct the world to perform a single step of simulation.
+            // It is generally best to keep the time step and iterations fixed.
+            gameWorld->Step(then*timeStep, velocityIterations, positionIterations);
+            /* For when more than one physics body exists
+            for(int i=0; i < bodies.size(); i++)
+            {
+                bodies[i]->update();
+            }*/
+
+            myShip->update();
             smgr->drawAll();
             guienv->drawAll();
             driver->endScene();
-        }
-        else
-        {
-            device->yield();
-        }
+        //}
+        //else
+        //{
+        //    device->yield();
+        //}
 
     }
     
