@@ -43,15 +43,15 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
     //Body Def
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(defX,defY);   // the body's origin position.
-    bodyDef.angle = 0.25f * b2_pi;      // the body's angle in radians.
+    bodyDef.angle = b2_pi;      // the body's angle in radians.
     bodyDef.linearDamping = 0.0f;
     bodyDef.angularDamping = 0.01f;
     bodyDef.gravityScale = 0.0f; // Set the gravity scale to zero so this body will float
-    bodyDef.allowSleep = true;
-    bodyDef.awake = true;
-    bodyDef.fixedRotation = false;
-    bodyDef.userData = this;
-    bodyDef.active = true;
+    bodyDef.allowSleep = false;
+    //bodyDef.awake = true;
+    //bodyDef.fixedRotation = false;
+    //bodyDef.userData = this;
+    //bodyDef.active = true;
 
     //shape Def
     b2PolygonShape dynamicBox;
@@ -141,6 +141,7 @@ void Ship::applyLeftThrust(){
 }
 
 void Ship::applyRightThrust(){
+    //body->ApplyTorque(50.0f);
     vector3df rot = this->node->getRotation();
     //TODO: Do something more clever than this
     rot.Y+=this->shipTurnThrust/4;
@@ -161,12 +162,15 @@ void Ship::update(){
 
     if(this->shipForwardThrustOn){
         //b2Vec2 point = this->dynamicBody->GetPosition();
-        this->dynamicBody->ApplyForce(b2Vec2(50,0), this->dynamicBody->GetWorldCenter());
+        //b2Vec2 f = this->dynamicBody->GetWorldVector(b2Vec2(0.0f, 2.0f));
+        //b2Vec2 p = this->dynamicBody->GetWorldPoint(b2Vec2(0.0f, 0.0f));
+        this->dynamicBody->ApplyForce(b2Vec2(1,0), this->dynamicBody->GetWorldCenter());
+        //this->dynamicBody->ApplyForce(f,p);
     }
 
     b2Vec2 pos = this->dynamicBody->GetPosition();
-    vector3df pos2 = this->getPosition();
-    this->node->setPosition(vector3df(pos.x,pos.y,0.0f));
+    //vector3df pos2 = this->getPosition();
+    this->node->setPosition(vector3df(0.0f,pos.x,pos.y));
     //cout << "dynbody X: " << pos.x << ", Y: " << pos.y << "\n";
     //cout << "node    X: " << pos2.X << ", Y: " << pos2.Y << "\n";
 }

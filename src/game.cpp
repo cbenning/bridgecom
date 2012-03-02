@@ -93,14 +93,16 @@ int main()
 
             // Instruct the world to perform a single step of simulation.
             // It is generally best to keep the time step and iterations fixed.
-            gameWorld->Step(then*timeStep, velocityIterations, positionIterations);
+
+            gameWorld->Step(timeStep, velocityIterations, positionIterations);
+            myShip->update();
+
             /* For when more than one physics body exists
             for(int i=0; i < bodies.size(); i++)
             {
                 bodies[i]->update();
             }*/
 
-            myShip->update();
             smgr->drawAll();
             guienv->drawAll();
             driver->endScene();
