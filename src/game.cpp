@@ -68,7 +68,7 @@ int main()
     Ship* myShip = new Ship(smgr,driver,gameWorld,0);
     ICameraSceneNode* camera = smgr->addCameraSceneNode(0);
     camera->bindTargetAndRotation(true);
-    camera->setParent(myShip->getSceneNode());
+    //camera->setParent(myShip->getSceneNode());
     camera->setPosition(myShip->getCamFollowPosition()); 
     camera->setTarget(myShip->getPosition()); 
 
@@ -95,7 +95,7 @@ int main()
             // It is generally best to keep the time step and iterations fixed.
 
             gameWorld->Step(timeStep, velocityIterations, positionIterations);
-            myShip->update();
+            myShip->update(camera);
 
             /* For when more than one physics body exists
             for(int i=0; i < bodies.size(); i++)

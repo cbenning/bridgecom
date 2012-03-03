@@ -8,7 +8,7 @@ LDLIBS := -lIrrlicht -lGL -lXxf86vm -lXext -lX11 -lpng -ljpeg
 BIN_OUTPUT := ../bin/
 BIN_FILE := bridgecom
 
-linux64: game.o followcamera.o ship.o body.o system.o pugixml/pugixml.o event.o ../lib/linux64/libBox2D.a
+linux64: game.o followcamera.o ship.o body.o system.o pugixml/pugixml.o event.o util.o ../lib/linux64/libBox2D.a
 	mkdir -p $(BIN_OUTPUT)
 	$(CC) $^ $(CFLAGS) $(LDLIBS) -o $(BIN_OUTPUT)$(BIN_FILE)
 	cp template_runscript.sh ../run.sh
@@ -28,6 +28,9 @@ followcamera.o: followcamera.cpp
 
 ship.o: ship.cpp
 	$(CC) $(CFLAGS) -c ship.cpp
+
+util.o: util.cpp
+	$(CC) $(CFLAGS) -c util.cpp
 
 body.o: body.cpp
 	$(CC) $(CFLAGS) -c body.cpp

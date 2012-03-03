@@ -42,13 +42,14 @@ int GameEventReceiver::handleInput(u32 then, u32 now, IrrlichtDevice *device, Sh
     then = now;
     nodePosition = shipNode->getPosition();
     
-    if(this->isKeyDown(irr::KEY_KEY_S))
-    {
+    if(this->isKeyDown(irr::KEY_KEY_S)){
         //cout<<"S\n";
-        //shipNode->setPosition(v);
+        shipNode->applyReverseThrust();
     }
-    if(this->isKeyDown(irr::KEY_KEY_W))
-    {
+    else{
+        shipNode->cancelReverseThrust();
+    }
+    if(this->isKeyDown(irr::KEY_KEY_W)){
         //cout<<"W\n";
         shipNode->applyForwardThrust();
     }
@@ -56,17 +57,22 @@ int GameEventReceiver::handleInput(u32 then, u32 now, IrrlichtDevice *device, Sh
         shipNode->cancelForwardThrust();
     }
 
-    if(this->isKeyDown(irr::KEY_KEY_A))
-    {
+    if(this->isKeyDown(irr::KEY_KEY_A)){
         //cout<<"A\n";
         shipNode->applyLeftThrust();
     }
-    if(this->isKeyDown(irr::KEY_KEY_D))
-    {
+    else{
+        shipNode->cancelLeftThrust();
+    }
+
+    if(this->isKeyDown(irr::KEY_KEY_D)){
         //cout<<"D\n";
         shipNode->applyRightThrust();
     }
-    
+    else{
+        shipNode->cancelRightThrust();
+    }
+
     if(this->isKeyDown(irr::KEY_KEY_Q))
     {
         device -> drop();

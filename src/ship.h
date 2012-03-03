@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include "def.h"
+#include "util.h"
 #include "Box2D/Box2D.h"
 
 using namespace irr; 
@@ -22,8 +23,12 @@ private:
     std::string shipModel[MAX_SHIP_MODELS];
     f32 shipForwardThrust;
     bool shipForwardThrustOn;
-    f32 shipTurnThrust;
+    f32 shipLeftThrust;
+    bool shipLeftThrustOn;
+    f32 shipRightThrust;
+    bool shipRightThrustOn;
     f32 shipReverseThrust;
+    bool shipReverseThrustOn;
     core::vector3df shipMovement;
     scene::IAnimatedMesh* mesh;
     scene::IAnimatedMeshSceneNode* node;
@@ -46,9 +51,12 @@ public:
     void applyForwardThrust();
     void cancelForwardThrust();
     void applyReverseThrust();
+    void cancelReverseThrust();
     void applyLeftThrust();
+    void cancelLeftThrust();
     void applyRightThrust();
+    void cancelRightThrust();
     core::vector3df getCamFollowPosition();
     IAnimatedMeshSceneNode* getSceneNode();
-    void update();
+    void update(ICameraSceneNode* camera);
 };
