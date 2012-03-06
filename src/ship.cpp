@@ -37,7 +37,7 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
         node->setMaterialFlag(EMF_WIREFRAME, true);
     } 
     this->node->setPosition(vector3df(defX,defY,defZ)); //TODO
-    this->node->setRotation(vector3df(0,90,180));
+    this->node->setRotation(vector3df(0,0,0));
 
     //
     // Box2D stuff
@@ -176,7 +176,11 @@ core::vector3df Ship::getCamFollowPosition(){
     b2Vec2 rot = Util::deg2vec(angle);
     rot.Normalize();
     vector3df pos = this->node->getPosition();
-    vector3df tmp2 = vector3df(pos.X+rot.x*-20,pos.X+rot.y*25.0f,pos.Z);
+    //cout << "pos.X:" << pos.X << " , pos.Y:" <<pos.Y << " , pos.Z:" << pos.Z << "\n";
+    //cout << "rot.x:" << rot.x << " , rot.y:" <<rot.y << "\n";
+    rot = -20*rot; //Get inverse and scale
+    vector3df tmp2 = vector3df(pos.X+rot.x,pos.Y+8,pos.Z+rot.y);
+
     return tmp2;
 }
 
@@ -188,7 +192,7 @@ void Ship::update(ICameraSceneNode* camera){
 
     //Sync rotation
     f32 angle = this->dynamicBody->GetAngle();
-    this->node->setRotation(vector3df(angle,0.0f,0.0f));
+    this->node->setRotation(vector3df(0.0f,-angle+90,0.0f));
 
     //Forward/Reverse thrust
     if(this->shipForwardThrustOn && !this->shipReverseThrustOn){
@@ -196,14 +200,14 @@ void Ship::update(ICameraSceneNode* camera){
         rot.Normalize();
         //cout << "angle : " << angle << ", ";
         //cout << "rot    X: " << rot.x << ", Y: " << rot.y << "\n";
-        this->dynamicBody->ApplyForce(20*rot, this->dynamicBody->GetWorldCenter());
+        this->dynamicBody->ApplyForce(10*rot, this->dynamicBody->GetWorldCenter());
     }
     else if(this->shipReverseThrustOn && !this->shipForwardThrustOn){
         b2Vec2 rot = Util::deg2vec(angle);
         rot.Normalize();
         //cout << "angle : " << angle << ", ";
         //cout << "rot    X: " << rot.x << ", Y: " << rot.y << "\n";
-        this->dynamicBody->ApplyForce(-20*rot, this->dynamicBody->GetWorldCenter());
+        this->dynamicBody->ApplyForce(-10*rot, this->dynamicBody->GetWorldCenter());
     }
 
     //vector3df tmp = this->node->getRotation();
@@ -211,14 +215,14 @@ void Ship::update(ICameraSceneNode* camera){
 
     //Sync position
     b2Vec2 pos = this->dynamicBody->GetPosition();
-    this->node->setPosition(vector3df(pos.x,pos.y,0.0f));
+    this->node->setPosition(vector3df(pos.x,0.0f,pos.y));
     
     //Left/Right thrust
     if(this->shipLeftThrustOn && !this->shipRightThrustOn){
-        this->dynamicBody->ApplyTorque(-2.0f);
+        this->dynamicBody->ApplyTorque(4.0f);
     }
     else if(this->shipRightThrustOn && !this->shipLeftThrustOn){
-        this->dynamicBody->ApplyTorque(2.0f);
+        this->dynamicBody->ApplyTorque(-4.0f);
     }
     
     //Catch up camera
@@ -226,6 +230,5 @@ void Ship::update(ICameraSceneNode* camera){
     camera->setTarget(this->getPosition()); 
 
     //cout << "dynbody X: " << pos.x << ", Y: " << pos.y << "\n";
-    //cout << "node    X: " << pos2.X << ", Y: " << pos2.Y << "\n";
 }
 
