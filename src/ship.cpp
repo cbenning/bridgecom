@@ -47,8 +47,8 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(defX,defY);   // the body's origin position.
     bodyDef.angle = b2_pi;      // the body's angle in radians.
-    bodyDef.linearDamping = 0.7f;
-    bodyDef.angularDamping = 0.7f;
+    bodyDef.linearDamping = 0.05f;
+    bodyDef.angularDamping = 0.5f;
     bodyDef.gravityScale = 0.0f; // Set the gravity scale to zero so this body will float
     bodyDef.allowSleep = false;
     //bodyDef.awake = true;
@@ -65,7 +65,7 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicBox;
     fixtureDef.density = 1.0f;
-    fixtureDef.friction = 0.75f;
+    fixtureDef.friction = 0.05f;
 
     //Fire it up
     this->dynamicBody = this->gameWorld->CreateBody(&bodyDef);
