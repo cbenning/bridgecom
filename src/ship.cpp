@@ -46,8 +46,8 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(defX,defY);   // the body's origin position.
     bodyDef.angle = b2_pi;      // the body's angle in radians.
-    bodyDef.linearDamping = 0.05f;
-    bodyDef.angularDamping = 0.5f;
+    bodyDef.linearDamping = 0.02f;
+    bodyDef.angularDamping = 0.4f;
     bodyDef.gravityScale = 0.0f; // Set the gravity scale to zero so this body will float
     bodyDef.allowSleep = false;
     //bodyDef.awake = true;
@@ -63,8 +63,8 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
     //fixture def 
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicBox;
-    fixtureDef.density = 1.0f;
-    fixtureDef.friction = 0.05f;
+    fixtureDef.density = 5.0f;
+    fixtureDef.friction = 0.0f;
 
     //Fire it up
     this->dynamicBody = this->gameWorld->CreateBody(&bodyDef);
@@ -195,14 +195,14 @@ void Ship::update(ICameraSceneNode* camera){
         rot.Normalize();
         //cout << "angle : " << angle << ", ";
         //cout << "rot    X: " << rot.x << ", Y: " << rot.y << "\n";
-        this->dynamicBody->ApplyForce(10*rot, this->dynamicBody->GetWorldCenter());
+        this->dynamicBody->ApplyForce(5*rot, this->dynamicBody->GetWorldCenter());
     }
     else if(this->shipReverseThrustOn && !this->shipForwardThrustOn){
         b2Vec2 rot = Util::deg2vec(angle);
         rot.Normalize();
         //cout << "angle : " << angle << ", ";
         //cout << "rot    X: " << rot.x << ", Y: " << rot.y << "\n";
-        this->dynamicBody->ApplyForce(-10*rot, this->dynamicBody->GetWorldCenter());
+        this->dynamicBody->ApplyForce(-3*rot, this->dynamicBody->GetWorldCenter());
     }
 
     //vector3df tmp = this->node->getRotation();
@@ -214,10 +214,10 @@ void Ship::update(ICameraSceneNode* camera){
     
     //Left/Right thrust
     if(this->shipLeftThrustOn && !this->shipRightThrustOn){
-        this->dynamicBody->ApplyTorque(4.0f);
+        this->dynamicBody->ApplyTorque(10.0f);
     }
     else if(this->shipRightThrustOn && !this->shipLeftThrustOn){
-        this->dynamicBody->ApplyTorque(-4.0f);
+        this->dynamicBody->ApplyTorque(-10.0f);
     }
     
     //Catch up camera

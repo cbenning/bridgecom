@@ -37,17 +37,24 @@ void Body::buildBody()
 	this->node = this->smgr->addSphereSceneNode(this->radius, PLANET_POLY_COUNT);
     if (this->node)
     {
-        this->node->setPosition(this->getPosition());
+
         this->node->setMaterialTexture(0, this->driver->getTexture((IMG_DIR+this->texture).c_str()));
+
+        vector3df tmp = this->getPosition();
+        tmp.Y-=(this->radius+BODY_PLANE_BUFFER);
+        this->node->setPosition(tmp);
 
         cout << "Type: " << this->type << "\n";
         if(this->type=="star"){
             this->smgr->addLightSceneNode(0,this->getPosition(),video::SColorf(this->brightness,this->brightness,this->brightness),this->radius,1); 
             //ILightSceneNode* light1 = this->smgr->addLightSceneNode(0,this->getPosition(),video::SColorf(this->brightness,this->brightness,this->brightness),this->radius,1); 
             this->node->setMaterialFlag(EMF_LIGHTING, false); // enable dynamic lighting
+            //Offset the location to underneath the plane
+            tmp.Y-=(this->radius+BODY_PLANE_BUFFER);
         }
         else{
             this->node->setMaterialFlag(EMF_LIGHTING, true); // enable dynamic lighting
+            tmp.Y-=(this->radius+BODY_PLANE_BUFFER);
         }
 
         if(this->parentBody)
@@ -84,4 +91,9 @@ core::vector3df Body::getPosition(){
 
 std::string Body::getName(){
     return this->name;
+}
+
+
+int Body::getRadius(){
+    return this->radius;
 }
