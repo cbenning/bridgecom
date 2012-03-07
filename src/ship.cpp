@@ -12,22 +12,20 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
     //this->shipTurnThrust=0.6f;
     //this->shipReverseThrust=0.4f;
     this->gameWorld=gameWorld;
-
+    this->cameraZoom = DEFAULT_CAM_ZOOM; 
+    this->cameraZoomingOut = false;
+    this->cameraZoomingIn = false;
     //TODO: Fixme
-    this->shipMovement = vector3df(0,0,0);
 
-    //TODO: Make this better. suck it from a file?
-    shipModel[0] = "patrol_frigate.3ds";
+    std::string shipModel = "patrol_frigate.3ds";
 
     f32 defX = 400.0f;
     f32 defY = 400.0f;
     f32 defZ = 0.0f;
-
     //
     // Irrlicht Stuff
     //
-    cout<<(MODEL_DIR+shipModel[model]).c_str();
-    this->mesh = smgr->getMesh((MODEL_DIR+shipModel[model]).c_str());
+    this->mesh = smgr->getMesh((MODEL_DIR+shipModel).c_str());
     this->node = smgr->addAnimatedMeshSceneNode(mesh);
     
     if (this->node)
@@ -111,10 +109,6 @@ void Ship::set2DRotation(b2Vec2 rot){
     this->node->setPosition(vector3df(rot.x,rot.y,0.0f));
 }
 
-core::vector3df Ship::getShipMovement(){
-    return this->shipMovement;
-}
-
 void Ship::applyForwardThrust(){
     if(!this->shipForwardThrustOn){
         cout << "Forward Thrust On\n";
@@ -180,7 +174,7 @@ core::vector3df Ship::getCamFollowPosition(){
     //cout << "pos.X:" << pos.X << " , pos.Y:" <<pos.Y << " , pos.Z:" << pos.Z << "\n";
     //cout << "rot.x:" << rot.x << " , rot.y:" <<rot.y << "\n";
     rot = -20*rot; //Get inverse and scale
-    vector3df tmp2 = vector3df(pos.X+rot.x,pos.Y+8,pos.Z+rot.y);
+    vector3df tmp2 = vector3df(pos.X+rot.x,pos.Y+cameraZoom,pos.Z+rot.y);
 
     return tmp2;
 }
@@ -230,6 +224,32 @@ void Ship::update(ICameraSceneNode* camera){
     camera->setPosition(this->getCamFollowPosition()); 
     camera->setTarget(this->getPosition()); 
 
-    //cout << "dynbody X: " << pos.x << ", Y: " << pos.y << "\n";
+    //Deal with camera zoom
+    if(this->cameraZoomingOut && this->cameraZoom<MAX_CAM_ZOOM){
+        this->cameraZoom+=CAM_ZOOM_DELTA;
+    }
+    else if(this->cameraZoomingIn && this->cameraZoom>MIN_CAM_ZOOM){
+        this->cameraZoom-=CAM_ZOOM_DELTA;
+    }
 }
 
+void Ship::increaseCameraZoom(bool cancel = false){
+    if(cancel){
+        this->cameraZoomingOut = false;
+    }
+    else{
+        this->cameraZoomingOut = true;
+        this->cameraZoomingIn = false;
+    }
+
+}
+
+void Ship::decreaseCameraZoom(bool cancel = false){
+    if(cancel){
+        this->cameraZoomingIn = false;
+    }
+    else{
+        this->cameraZoomingIn = true;
+        this->cameraZoomingOut = false;
+    }
+}

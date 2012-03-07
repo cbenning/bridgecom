@@ -14,22 +14,22 @@ using namespace io;
 using namespace gui; 
 using namespace std;
 
-#define MAX_SHIP_MODELS 1
-#define MAX_SHIP_THRUST 10
+#define DEFAULT_CAM_ZOOM 12
+#define MAX_CAM_ZOOM 80 
+#define MIN_CAM_ZOOM 5
+#define CAM_ZOOM_DELTA 0.1f
 
 class Ship
 {
 private:
-    std::string shipModel[MAX_SHIP_MODELS];
-    f32 shipForwardThrust;
+    std::string shipModel;
     bool shipForwardThrustOn;
-    f32 shipLeftThrust;
     bool shipLeftThrustOn;
-    f32 shipRightThrust;
     bool shipRightThrustOn;
-    f32 shipReverseThrust;
     bool shipReverseThrustOn;
-    core::vector3df shipMovement;
+    bool cameraZoomingOut;
+    bool cameraZoomingIn;
+    float cameraZoom;
     scene::IAnimatedMesh* mesh;
     scene::IAnimatedMeshSceneNode* node;
     //Box2D stuff
@@ -47,7 +47,6 @@ public:
     void set2DPosition(b2Vec2 pos);
     b2Vec2 get2DRotation();
     void set2DRotation(b2Vec2 rot);
-    core::vector3df getShipMovement();
     void applyForwardThrust();
     void cancelForwardThrust();
     void applyReverseThrust();
@@ -59,4 +58,6 @@ public:
     core::vector3df getCamFollowPosition();
     IAnimatedMeshSceneNode* getSceneNode();
     void update(ICameraSceneNode* camera);
+    void increaseCameraZoom(bool cancel);
+    void decreaseCameraZoom(bool cancel);
 };

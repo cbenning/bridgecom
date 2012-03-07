@@ -73,6 +73,21 @@ int GameEventReceiver::handleInput(u32 then, u32 now, IrrlichtDevice *device, Sh
         shipNode->cancelRightThrust();
     }
 
+    if(this->isKeyDown(irr::KEY_UP)){
+        //cout<<"D\n";
+        shipNode->decreaseCameraZoom(false);
+    }
+    else{
+        shipNode->decreaseCameraZoom(true);
+    }
+
+    if(this->isKeyDown(irr::KEY_DOWN)){
+        shipNode->increaseCameraZoom(false);
+    }
+    else{
+        shipNode->increaseCameraZoom(true);
+    }
+
     if(this->isKeyDown(irr::KEY_KEY_Q))
     {
         device -> drop();
