@@ -17,7 +17,7 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
     this->shipMovement = vector3df(0,0,0);
 
     //TODO: Make this better. suck it from a file?
-    shipModel[0] = "ship2.b3d";
+    shipModel[0] = "patrol_frigate.3ds";
 
     f32 defX = 400.0f;
     f32 defY = 400.0f;
@@ -27,14 +27,15 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
     // Irrlicht Stuff
     //
     cout<<(MODEL_DIR+shipModel[model]).c_str();
-    mesh = smgr->getMesh((MODEL_DIR+shipModel[model]).c_str());
-    node = smgr->addAnimatedMeshSceneNode(mesh);
+    this->mesh = smgr->getMesh((MODEL_DIR+shipModel[model]).c_str());
+    this->node = smgr->addAnimatedMeshSceneNode(mesh);
     
-    if (node)
+    if (this->node)
     {
-        //node->setMaterialTexture(0, driver->getTexture("../media/img/ship2.png"));
-        node->setMaterialFlag(EMF_LIGHTING, false);
-        node->setMaterialFlag(EMF_WIREFRAME, true);
+        this->node->setMaterialTexture(0, driver->getTexture("../media/img/patrol_frigate_default.png"));
+        this->node->setMaterialFlag(EMF_LIGHTING, false);
+        //this->node->setMaterialFlag(EMF_WIREFRAME, true);
+        this->node->setMaterialType(video::EMT_SOLID);
     } 
     this->node->setPosition(vector3df(defX,defY,defZ)); //TODO
     this->node->setRotation(vector3df(0,0,0));
