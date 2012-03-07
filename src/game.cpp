@@ -7,6 +7,7 @@
 #include "system.h"
 #include "event.h"
 #include "Box2D/Box2D.h"
+#include "grid/CGridSceneNode.h"
 
 using namespace irr;
 using namespace core;
@@ -38,6 +39,9 @@ int main()
     int32 velocityIterations = 10;
     int32 positionIterations = 8;
     gameWorld->Step(timeStep, velocityIterations, positionIterations);
+
+
+
 
     /* Fullscreen
     IrrlichtDevice *nulldevice = createDevice(video::EDT_NULL);
@@ -71,6 +75,10 @@ int main()
     //camera->setParent(myShip->getSceneNode());
     camera->setPosition(myShip->getCamFollowPosition()); 
     camera->setTarget(myShip->getPosition()); 
+
+    //Plane Grid
+    CGridSceneNode* grid = new CGridSceneNode(smgr->getRootSceneNode(), smgr, -1, 400, 16384, SColor(16,8,42,8),20,SColor(16,8,42,8));
+
 
     u32 then = device->getTimer()->getTime();
     u32 now;

@@ -8,7 +8,7 @@ LDLIBS := -lIrrlicht -lGL -lXxf86vm -lXext -lX11 -lpng -ljpeg
 BIN_OUTPUT := ../bin/
 BIN_FILE := bridgecom
 
-linux64: game.o followcamera.o ship.o body.o system.o pugixml/pugixml.o event.o util.o ../lib/linux64/libBox2D.a
+linux64: game.o followcamera.o ship.o body.o system.o grid/CGridSceneNode.o pugixml/pugixml.o event.o util.o ../lib/linux64/libBox2D.a
 	mkdir -p $(BIN_OUTPUT)
 	$(CC) $^ $(CFLAGS) $(LDLIBS) -o $(BIN_OUTPUT)$(BIN_FILE)
 	cp template_runscript.sh ../run.sh
@@ -38,10 +38,12 @@ body.o: body.cpp
 system.o: system.cpp
 	$(CC) $(CFLAGS) -c system.cpp
 
-pugixml/pugixml.o: pugixml/pugixml.cpp
-
 event.o: event.cpp
 	$(CC) $(CFLAGS) -c event.cpp
+
+pugixml/pugixml.o: pugixml/pugixml.cpp
+
+grid/CGridSceneNode.o: grid/CGridSceneNode.cpp
 
 
 #CSceneNodeAnimatorMovableFlyCircle.o: CSceneNodeAnimatorMovableFlyCircle.cpp
