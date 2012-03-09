@@ -17,7 +17,7 @@
             <radius>15</radius>
             <texture>mercury.jpg</texture>
             <orbit_radius>400</orbit_radius>
-            <orbit_speed>0.000001</orbit_speed>
+            <orbit_speed>0.000005</orbit_speed>
             <bright>2</bright>
         </body>
         <body>
@@ -26,7 +26,7 @@
             <radius>30</radius>
             <texture>venus.jpg</texture>
             <orbit_radius>700</orbit_radius>
-            <orbit_speed>0.000005</orbit_speed>
+            <orbit_speed>0.00001</orbit_speed>
             <bright>2</bright>
         </body>
         <body>
@@ -35,7 +35,7 @@
             <radius>40</radius>
             <texture>terra.jpg</texture>
             <orbit_radius>1200</orbit_radius>
-            <orbit_speed>0.000003</orbit_speed>
+            <orbit_speed>0.00001</orbit_speed>
             <bright>2</bright>
             <children>
                 <body>

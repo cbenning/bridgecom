@@ -17,7 +17,7 @@ using namespace std;
 #define DEFAULT_CAM_ZOOM 12
 #define MAX_CAM_ZOOM 80 
 #define MIN_CAM_ZOOM 5
-#define CAM_ZOOM_DELTA 0.1f
+#define CAM_ZOOM_DELTA 0.05f
 
 class Ship
 {

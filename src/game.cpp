@@ -77,7 +77,7 @@ int main()
     camera->setTarget(myShip->getPosition()); 
 
     //Plane Grid
-    CGridSceneNode* grid = new CGridSceneNode(smgr->getRootSceneNode(), smgr, -1, 400, 16384, SColor(16,8,42,8),20,SColor(16,8,42,8));
+    //CGridSceneNode* grid = new CGridSceneNode(smgr->getRootSceneNode(), smgr, -1, 400, 16384, SColor(16,8,42,8),20,SColor(16,8,42,8));
 
 
     u32 then = device->getTimer()->getTime();
