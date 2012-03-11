@@ -7,7 +7,7 @@
 #include "system.h"
 #include "event.h"
 #include "Box2D/Box2D.h"
-#include "grid/CGridSceneNode.h"
+//#include "grid/CGridSceneNode.h"
 
 using namespace irr;
 using namespace core;
@@ -28,7 +28,7 @@ int main()
     GameEventReceiver* eventReceiver = new GameEventReceiver();
 
     //Windowed
-	IrrlichtDevice *device = createDevice( video::EDT_OPENGL, dimension2d<u32>(1280, 800), 32,false, false, false, eventReceiver);
+	IrrlichtDevice *device = createDevice( video::EDT_OPENGL, dimension2d<u32>(1280, 800), 32,false, false, true, eventReceiver);
 
     //
     // Box2D Stuff
@@ -58,7 +58,7 @@ int main()
     ISceneManager* smgr = device->getSceneManager();
     IGUIEnvironment* guienv = device->getGUIEnvironment();
     
-    //driver->enableClipPlane(1,true);
+    smgr->setAmbientLight(irr::video::SColorf(1.0,1.0,1.0));
     guienv->addStaticText(L"Current Input",rect<s32>(10,10,260,22), true);
             
     System* solSys = new System(smgr,driver,"sol.xml");

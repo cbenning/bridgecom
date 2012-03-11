@@ -36,7 +36,7 @@ public:
 		Material.FogEnable = false;
 
         //Transparency hack
-        this->setMaterialType(EMT_TRANSPARENT_ALPHA_CHANNEL);
+        this->setMaterialType(EMT_TRANSPARENT_ALPHA_CHANNEL ;
 
 		/* We divide this here to save some calculations and speed up rendering time
 		   (Keep in mind that from now on, m_size is actually half the total size.

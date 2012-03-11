@@ -14,9 +14,10 @@ using namespace io;
 using namespace gui; 
 using namespace std;
 
-#define DEFAULT_CAM_ZOOM 12
+#define DEFAULT_CAM_ZOOM_Y 12
+#define DEFAULT_CAM_ZOOM_X 0
 #define MAX_CAM_ZOOM 80 
-#define MIN_CAM_ZOOM 5
+#define MIN_CAM_ZOOM 2
 #define CAM_ZOOM_DELTA 0.05f
 
 class Ship
@@ -29,7 +30,8 @@ private:
     bool shipReverseThrustOn;
     bool cameraZoomingOut;
     bool cameraZoomingIn;
-    float cameraZoom;
+    float cameraZoomY;
+    float cameraZoomX;
     scene::IAnimatedMesh* mesh;
     scene::IAnimatedMeshSceneNode* node;
     //Box2D stuff

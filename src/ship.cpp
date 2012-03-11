@@ -12,12 +12,14 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
     //this->shipTurnThrust=0.6f;
     //this->shipReverseThrust=0.4f;
     this->gameWorld=gameWorld;
-    this->cameraZoom = DEFAULT_CAM_ZOOM; 
+    this->cameraZoomY = DEFAULT_CAM_ZOOM_Y; 
+    this->cameraZoomX = DEFAULT_CAM_ZOOM_X; 
     this->cameraZoomingOut = false;
     this->cameraZoomingIn = false;
     //TODO: Fixme
 
-    std::string shipModel = "patrol_frigate.3ds";
+    //std::string shipModel = "patrol_frigate.3ds";
+    std::string shipModel = "transport_1.b3d";
 
     f32 defX = 400.0f;
     f32 defY = 400.0f;
@@ -30,8 +32,11 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
     
     if (this->node)
     {
-        this->node->setMaterialTexture(0, driver->getTexture("../media/img/patrol_frigate_default.png"));
+        //this->node->setMaterialTexture(0, driver->getTexture("../media/img/patrol_frigate_default.png"));
+        this->node->setMaterialTexture(0, driver->getTexture("../media/img/transport_1_rivets.png"));
         this->node->setMaterialFlag(EMF_LIGHTING, false);
+        //this->node->getMaterial(0).Shininess = 20.0f;
+        this->node->setMaterialType(irr::video::EMT_LIGHTMAP_M4);
         //this->node->setMaterialFlag(EMF_WIREFRAME, true);
         this->node->setMaterialType(video::EMT_SOLID);
     } 
@@ -173,8 +178,8 @@ core::vector3df Ship::getCamFollowPosition(){
     vector3df pos = this->node->getPosition();
     //cout << "pos.X:" << pos.X << " , pos.Y:" <<pos.Y << " , pos.Z:" << pos.Z << "\n";
     //cout << "rot.x:" << rot.x << " , rot.y:" <<rot.y << "\n";
-    rot = -20*rot; //Get inverse and scale
-    vector3df tmp2 = vector3df(pos.X+rot.x,pos.Y+cameraZoom,pos.Z+rot.y);
+    rot = -10*rot; //Get inverse and scale
+    vector3df tmp2 = vector3df(pos.X+rot.x,pos.Y+cameraZoomY,pos.Z+rot.y);
 
     return tmp2;
 }
@@ -225,11 +230,13 @@ void Ship::update(ICameraSceneNode* camera){
     camera->setTarget(this->getPosition()); 
 
     //Deal with camera zoom
-    if(this->cameraZoomingOut && this->cameraZoom<MAX_CAM_ZOOM){
-        this->cameraZoom+=CAM_ZOOM_DELTA;
+    if(this->cameraZoomingOut && this->cameraZoomY<MAX_CAM_ZOOM){
+        this->cameraZoomY+=CAM_ZOOM_DELTA;
+        this->cameraZoomX++;
     }
-    else if(this->cameraZoomingIn && this->cameraZoom>MIN_CAM_ZOOM){
-        this->cameraZoom-=CAM_ZOOM_DELTA;
+    else if(this->cameraZoomingIn && this->cameraZoomY>MIN_CAM_ZOOM){
+        this->cameraZoomY-=CAM_ZOOM_DELTA;
+        this->cameraZoomX--;
     }
 }
 
