@@ -35,7 +35,7 @@ int main()
     //
     b2Vec2 gravity = b2Vec2(0.0f,0.0f);
     b2World* gameWorld = new b2World(gravity);
-    float32 timeStep = 1.0f / 60.f;
+    float32 timeStep = 1.0f / 10.f;
     int32 velocityIterations = 10;
     int32 positionIterations = 8;
     gameWorld->Step(timeStep, velocityIterations, positionIterations);
