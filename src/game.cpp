@@ -58,7 +58,7 @@ int main()
     ISceneManager* smgr = device->getSceneManager();
     IGUIEnvironment* guienv = device->getGUIEnvironment();
     
-    smgr->setAmbientLight(irr::video::SColorf(1.0,1.0,1.0));
+    //smgr->setAmbientLight(irr::video::SColorf(1.0,1.0,1.0));
     guienv->addStaticText(L"Current Input",rect<s32>(10,10,260,22), true);
             
     System* solSys = new System(smgr,driver,"sol.xml");
