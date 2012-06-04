@@ -13,7 +13,7 @@ using namespace gui;
 using namespace std;
 
 #define PLANET_POLY_COUNT 32
-#define BODY_PLANE_BUFFER 20
+#define BODY_PLANE_BUFFER 300
 
 class Body 
 {

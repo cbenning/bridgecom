@@ -106,7 +106,7 @@ int GameEventReceiver::handleInput(u32 then, u32 now, IrrlichtDevice *device, Sh
 
     if(this->isKeyDown(irr::KEY_ESCAPE))
     {
-        device -> drop();
+        device->drop();
         return 50;
     }
     return 0;

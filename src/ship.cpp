@@ -193,7 +193,7 @@ core::vector3df Ship::getCamFollowPosition(){
     vector3df pos = this->node->getPosition();
     //cout << "pos.X:" << pos.X << " , pos.Y:" <<pos.Y << " , pos.Z:" << pos.Z << "\n";
     //cout << "rot.x:" << rot.x << " , rot.y:" <<rot.y << "\n";
-    rot = -10*rot; //Get inverse and scale
+    rot = -20*rot; //Get inverse and scale
     vector3df tmp2 = vector3df(pos.X+rot.x,pos.Y+cameraZoomY,pos.Z+rot.y);
 
     return tmp2;
