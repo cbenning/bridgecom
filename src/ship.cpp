@@ -116,56 +116,56 @@ void Ship::set2DRotation(b2Vec2 rot){
 
 void Ship::applyForwardThrust(){
     if(!this->shipForwardThrustOn){
-        cout << "Forward Thrust On\n";
+        //cout << "Forward Thrust On\n";
         this->shipForwardThrustOn = true;
     }
 }
 
 void Ship::cancelForwardThrust(){
     if(this->shipForwardThrustOn){
-        cout << "Forward Thrust Off\n"; 
+        //cout << "Forward Thrust Off\n"; 
         this->shipForwardThrustOn = false;
     }
 }
 
 void Ship::applyReverseThrust(){
     if(!this->shipReverseThrustOn){
-        cout << "Reverse Thrust On\n";
+        //cout << "Reverse Thrust On\n";
         this->shipReverseThrustOn = true;
     }
 }
 
 void Ship::cancelReverseThrust(){
     if(this->shipReverseThrustOn){
-        cout << "Reverse Thrust Off\n"; 
+        //cout << "Reverse Thrust Off\n"; 
         this->shipReverseThrustOn = false;
     }
 }
 
 void Ship::applyLeftThrust(){
     if(!this->shipLeftThrustOn){
-        cout << "Left Thrust On\n"; 
+        //cout << "Left Thrust On\n"; 
         this->shipLeftThrustOn = true;
     }
 }
 
 void Ship::cancelLeftThrust(){
     if(this->shipLeftThrustOn){
-        cout << "Left Thrust Off\n"; 
+        //cout << "Left Thrust Off\n"; 
         this->shipLeftThrustOn = false;
     }
 }
 
 void Ship::applyRightThrust(){
     if(!this->shipRightThrustOn){
-        cout << "Right Thrust On\n"; 
+        //cout << "Right Thrust On\n"; 
         this->shipRightThrustOn = true;
     }
 }
 
 void Ship::cancelRightThrust(){
     if(this->shipRightThrustOn){
-        cout << "Right Thrust Off\n"; 
+        //cout << "Right Thrust Off\n"; 
         this->shipRightThrustOn = false;
     }
 }

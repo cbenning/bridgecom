@@ -28,20 +28,17 @@ int main()
     GameEventReceiver* eventReceiver = new GameEventReceiver();
 
     //Windowed
-	IrrlichtDevice *device = createDevice( video::EDT_OPENGL, dimension2d<u32>(1280, 800), 32,false, false, true, eventReceiver);
+	IrrlichtDevice *device = createDevice( video::EDT_OPENGL, dimension2d<u32>(1280, 800), 16, false, true, true, eventReceiver);
 
     //
     // Box2D Stuff
     //
     b2Vec2 gravity = b2Vec2(0.0f,0.0f);
     b2World* gameWorld = new b2World(gravity);
-    float32 timeStep = 1.0f / 10.f;
+    float32 timeStep = 1.0f / 60.f;
     int32 velocityIterations = 10;
     int32 positionIterations = 8;
     gameWorld->Step(timeStep, velocityIterations, positionIterations);
-
-
-
 
     /* Fullscreen
     IrrlichtDevice *nulldevice = createDevice(video::EDT_NULL);
@@ -58,15 +55,10 @@ int main()
     ISceneManager* smgr = device->getSceneManager();
     IGUIEnvironment* guienv = device->getGUIEnvironment();
     
-    //smgr->setAmbientLight(irr::video::SColorf(1.0,1.0,1.0));
     guienv->addStaticText(L"Current Input",rect<s32>(10,10,260,22), true);
             
     System* solSys = new System(smgr,driver,"sol.xml");
     solSys->buildSystem();
-
-    //RTSCamera* camera = new RTSCamera(device,smgr->getRootSceneNode(),smgr,1,200.0f, 100.0f,2.0f);
-    //camera->setPosition(vector3df(250,250,0)); 
-    //camera->setRotation(vector3df(0,0,0)); 
 
     //smgr->setAmbientLight(video::SColorf(0.3,0.3,0.3,1));
     Ship* myShip = new Ship(smgr,driver,gameWorld,0);
@@ -78,7 +70,6 @@ int main()
 
     //Plane Grid
     //CGridSceneNode* grid = new CGridSceneNode(smgr->getRootSceneNode(), smgr, -1, 400, 16384, SColor(16,8,42,8),20,SColor(16,8,42,8));
-
 
     u32 then = device->getTimer()->getTime();
     u32 now;
