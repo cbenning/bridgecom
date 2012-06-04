@@ -7,7 +7,7 @@
 #include "system.h"
 #include "event.h"
 #include "Box2D/Box2D.h"
-//#include "grid/CGridSceneNode.h"
+#include "grid/CGridSceneNode.h"
 
 using namespace irr;
 using namespace core;
@@ -60,14 +60,15 @@ int main()
 
     //smgr->setAmbientLight(video::SColorf(0.3,0.3,0.3,1));
     Ship* myShip = new Ship(smgr,driver,gameWorld,0);
+
     ICameraSceneNode* camera = smgr->addCameraSceneNode(0);
+    camera->setFarValue(50000.0f); 
     camera->bindTargetAndRotation(true);
-    //camera->setParent(myShip->getSceneNode());
     camera->setPosition(myShip->getCamFollowPosition()); 
     camera->setTarget(myShip->getPosition()); 
 
-    //Plane Grid
-    //CGridSceneNode* grid = new CGridSceneNode(smgr->getRootSceneNode(), smgr, -1, 400, 16384, SColor(16,8,42,8),20,SColor(16,8,42,8));
+    //Plane Grid - Needs work
+    //CGridSceneNode* grid = new CGridSceneNode(smgr->getRootSceneNode(), smgr, -1, 100, 16384, SColor(16,8,42,8),20,SColor(16,8,42,8));
 
     u32 then = device->getTimer()->getTime();
     u32 now;
