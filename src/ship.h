@@ -25,9 +25,11 @@ class Ship
 private:
     std::string shipModel;
     bool shipForwardThrustOn;
+    bool shipReverseThrustOn;
     bool shipLeftThrustOn;
     bool shipRightThrustOn;
-    bool shipReverseThrustOn;
+    bool shipLeftStrafeThrustOn;
+    bool shipRightStrafeThrustOn;
     bool cameraZoomingOut;
     bool cameraZoomingIn;
     float cameraZoomY;
@@ -57,6 +59,10 @@ public:
     void cancelLeftThrust();
     void applyRightThrust();
     void cancelRightThrust();
+    void applyLeftStrafeThrust();
+    void cancelLeftStrafeThrust();
+    void applyRightStrafeThrust();
+    void cancelRightStrafeThrust();
     core::vector3df getCamFollowPosition();
     IAnimatedMeshSceneNode* getSceneNode();
     void update(ICameraSceneNode* camera);

@@ -9,14 +9,13 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
     this->shipReverseThrustOn=false;
     this->shipLeftThrustOn=false;
     this->shipRightThrustOn=false;
-    //this->shipTurnThrust=0.6f;
-    //this->shipReverseThrust=0.4f;
+    this->shipLeftStrafeThrustOn=false;
+    this->shipRightStrafeThrustOn=false;
     this->gameWorld=gameWorld;
     this->cameraZoomY = DEFAULT_CAM_ZOOM_Y; 
     this->cameraZoomX = DEFAULT_CAM_ZOOM_X; 
     this->cameraZoomingOut = false;
     this->cameraZoomingIn = false;
-    //TODO: Fixme
 
     //std::string shipModel = "patrol_frigate.3ds";
     std::string shipModel = "transport_1.b3d";
@@ -116,57 +115,73 @@ void Ship::set2DRotation(b2Vec2 rot){
 
 void Ship::applyForwardThrust(){
     if(!this->shipForwardThrustOn){
-        //cout << "Forward Thrust On\n";
         this->shipForwardThrustOn = true;
     }
 }
 
 void Ship::cancelForwardThrust(){
     if(this->shipForwardThrustOn){
-        //cout << "Forward Thrust Off\n"; 
         this->shipForwardThrustOn = false;
     }
 }
 
 void Ship::applyReverseThrust(){
     if(!this->shipReverseThrustOn){
-        //cout << "Reverse Thrust On\n";
         this->shipReverseThrustOn = true;
     }
 }
 
 void Ship::cancelReverseThrust(){
     if(this->shipReverseThrustOn){
-        //cout << "Reverse Thrust Off\n"; 
         this->shipReverseThrustOn = false;
     }
 }
 
 void Ship::applyLeftThrust(){
     if(!this->shipLeftThrustOn){
-        //cout << "Left Thrust On\n"; 
         this->shipLeftThrustOn = true;
     }
 }
 
 void Ship::cancelLeftThrust(){
     if(this->shipLeftThrustOn){
-        //cout << "Left Thrust Off\n"; 
         this->shipLeftThrustOn = false;
     }
 }
 
 void Ship::applyRightThrust(){
     if(!this->shipRightThrustOn){
-        //cout << "Right Thrust On\n"; 
         this->shipRightThrustOn = true;
     }
 }
 
 void Ship::cancelRightThrust(){
     if(this->shipRightThrustOn){
-        //cout << "Right Thrust Off\n"; 
         this->shipRightThrustOn = false;
+    }
+}
+
+void Ship::applyLeftStrafeThrust(){
+    if(!this->shipLeftStrafeThrustOn){
+        this->shipLeftStrafeThrustOn = true;
+    }
+}
+
+void Ship::cancelLeftStrafeThrust(){
+    if(this->shipLeftStrafeThrustOn){
+        this->shipLeftStrafeThrustOn = false;
+    }
+}
+
+void Ship::applyRightStrafeThrust(){
+    if(!this->shipRightStrafeThrustOn){
+        this->shipRightStrafeThrustOn = true;
+    }
+}
+
+void Ship::cancelRightStrafeThrust(){
+    if(this->shipRightStrafeThrustOn){
+        this->shipRightStrafeThrustOn = false;
     }
 }
 
@@ -198,20 +213,25 @@ void Ship::update(ICameraSceneNode* camera){
     if(this->shipForwardThrustOn && !this->shipReverseThrustOn){
         b2Vec2 rot = Util::deg2vec(angle);
         rot.Normalize();
-        //cout << "angle : " << angle << ", ";
-        //cout << "rot    X: " << rot.x << ", Y: " << rot.y << "\n";
         this->dynamicBody->ApplyForce(5*rot, this->dynamicBody->GetWorldCenter());
     }
     else if(this->shipReverseThrustOn && !this->shipForwardThrustOn){
         b2Vec2 rot = Util::deg2vec(angle);
         rot.Normalize();
-        //cout << "angle : " << angle << ", ";
-        //cout << "rot    X: " << rot.x << ", Y: " << rot.y << "\n";
         this->dynamicBody->ApplyForce(-3*rot, this->dynamicBody->GetWorldCenter());
     }
 
-    //vector3df tmp = this->node->getRotation();
-    //cout << "node   Y: " << tmp.Y << "\n";
+    //Strafe thrust
+    if(this->shipLeftStrafeThrustOn && !this->shipRightStrafeThrustOn){
+        b2Vec2 rot = Util::deg2vec(angle+90);
+        rot.Normalize();
+        this->dynamicBody->ApplyForce(2*rot, this->dynamicBody->GetWorldCenter());
+    }
+    else if(this->shipRightStrafeThrustOn && !this->shipLeftStrafeThrustOn){
+        b2Vec2 rot = Util::deg2vec(angle-90);
+        rot.Normalize();
+        this->dynamicBody->ApplyForce(2*rot, this->dynamicBody->GetWorldCenter());
+    }
 
     //Sync position
     b2Vec2 pos = this->dynamicBody->GetPosition();
@@ -224,7 +244,7 @@ void Ship::update(ICameraSceneNode* camera){
     else if(this->shipRightThrustOn && !this->shipLeftThrustOn){
         this->dynamicBody->ApplyTorque(-10.0f);
     }
-    
+
     //Catch up camera
     camera->setPosition(this->getCamFollowPosition()); 
     camera->setTarget(this->getPosition()); 

@@ -28,24 +28,22 @@ int main()
     GameEventReceiver* eventReceiver = new GameEventReceiver();
 
     //Windowed
-	IrrlichtDevice *device = createDevice( video::EDT_OPENGL, dimension2d<u32>(1280, 800), 16, false, true, true, eventReceiver);
+    //core::dimension2d<u32> resolution = core::dimension2d<u32>(1280, 800);
+    //Fullscreen
+    IrrlichtDevice *nulldevice = createDevice(video::EDT_NULL);
+    core::dimension2d<u32> resolution = nulldevice->getVideoModeList()->getDesktopResolution();
+	IrrlichtDevice *device = createDevice( video::EDT_OPENGL, resolution, 16, false, true, true, eventReceiver);
 
     //
     // Box2D Stuff
     //
     b2Vec2 gravity = b2Vec2(0.0f,0.0f);
     b2World* gameWorld = new b2World(gravity);
-    float32 timeStep = 1.0f / 60.f;
+    float32 timeStep = 1.0f / 30.f;
     int32 velocityIterations = 10;
     int32 positionIterations = 8;
     gameWorld->Step(timeStep, velocityIterations, positionIterations);
 
-    /* Fullscreen
-    IrrlichtDevice *nulldevice = createDevice(video::EDT_NULL);
-    core::dimension2d<u32> deskres = nulldevice->getVideoModeList()->getDesktopResolution();
-    nulldevice -> drop();
-	IrrlichtDevice *device = createDevice( video::EDT_OPENGL, deskres, 32, true, false, false, eventReceiver);
-    */
     if (!device)
             return 1;
 
