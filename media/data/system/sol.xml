@@ -5,6 +5,7 @@
 <body>
     <name>The Sun</name>
     <type>star</type>
+    <desc>Sol's Star</desc>
     <radius>1000</radius>
     <texture>yellow_sun.jpg</texture> 
     <orbit_radius>0</orbit_radius>
@@ -14,6 +15,7 @@
         <body>
             <name>Mercury</name>
             <type>planet</type> 
+            <desc>Mercury's Desc</desc>
             <radius>150</radius>
             <texture>mercury.jpg</texture>
             <orbit_radius>4000</orbit_radius>
@@ -23,6 +25,7 @@
         <body>
             <name>Venus</name>
             <type>planet</type> 
+            <desc>Venus's Desc</desc>
             <radius>300</radius>
             <texture>venus.jpg</texture>
             <orbit_radius>7000</orbit_radius>
@@ -32,6 +35,7 @@
         <body>
             <name>Terra</name>
             <type>planet</type>
+            <desc>Earth's Desc</desc>
             <radius>400</radius>
             <texture>terra.jpg</texture>
             <orbit_radius>12000</orbit_radius>
@@ -54,6 +58,7 @@
         <body>
             <name>Mars</name>
             <type>planet</type> 
+            <desc>Earth's Desc</desc>
             <radius>300</radius>
             <texture>mars.jpg</texture>
             <orbit_radius>15000</orbit_radius>
@@ -63,6 +68,7 @@
         <body>
             <name>Jupiter</name>
             <type>planet</type> 
+            <desc>Earth's Desc</desc>
             <radius>900</radius>
             <texture>jupiter.jpg</texture>
             <orbit_radius>20000</orbit_radius>
@@ -72,6 +78,7 @@
         <body>
             <name>Saturn</name>
             <type>planet</type> 
+            <desc>Earth's Desc</desc>
             <radius>700</radius>
             <texture>saturn.jpg</texture>
             <orbit_radius>24000</orbit_radius>
@@ -81,6 +88,7 @@
         <body>
             <name>Uranus</name>
             <type>planet</type> 
+            <desc>Earth's Desc</desc>
             <radius>500</radius>
             <texture>uranus.jpg</texture>
             <orbit_radius>27000</orbit_radius>
@@ -90,6 +98,7 @@
         <body>
             <name>Neptune</name>
             <type>planet</type> 
+            <desc>Earth's Desc</desc>
             <radius>450</radius>
             <texture>neptune.jpg</texture>
             <orbit_radius>30000</orbit_radius>

@@ -1,14 +1,14 @@
 
-
 #include "body.h"
 #include "def.h"
 
-Body::Body(ISceneManager* smgr,IVideoDriver* driver, core::vector3df position, const int radius, std::string name, std::string type, int orbitRadius, f32 orbitSpeed, Body* parentBody, std::string texture, int brightness)
+Body::Body(ISceneManager* smgr,IVideoDriver* driver, core::vector3df position, const int radius, std::string name, std::string desc, std::string type, int orbitRadius, f32 orbitSpeed, Body* parentBody, std::string texture, int brightness) : TargetableObject(name,desc,type)
 {
 
     this->radius=radius;
-    this->name=name;
-    this->type=type;
+    //this->name=name;
+    //this->desc=desc;
+    //this->type=type;
     this->orbitRadius=orbitRadius;
     this->orbitSpeed=orbitSpeed;
     this->parentBody=parentBody;

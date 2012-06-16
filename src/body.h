@@ -2,7 +2,7 @@
 #include <irrlicht.h> 
 #include <string>
 #include <iostream>
-#include <vector>
+#include "targets.h"
 
 using namespace irr; 
 using namespace core; 
@@ -15,8 +15,7 @@ using namespace std;
 #define PLANET_POLY_COUNT 32
 #define BODY_PLANE_BUFFER 300
 
-class Body 
-{
+class Body : public TargetableObject {
 private:
     int radius;
     std::string name;
@@ -39,7 +38,7 @@ private:
 		f32 radiusEllipsoid);
 
 public:
-    Body(ISceneManager* smgr, IVideoDriver* driver, core::vector3df position, const int radius, std::string name, std::string type, int orbitRadius, f32 orbitSpeed, Body* parentBody, std::string texture, int brightness);
+    Body(ISceneManager* smgr, IVideoDriver* driver, core::vector3df position, const int radius, std::string name, std::string desc, std::string type, int orbitRadius, f32 orbitSpeed, Body* parentBody, std::string texture, int brightness);
     void addChild(Body* child);
     void buildBody();
     core::vector3df getPosition();
