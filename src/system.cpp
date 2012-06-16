@@ -1,6 +1,6 @@
 
-#include <irrlicht.h> 
 #include <string>
+#include <irrlicht.h> 
 #include <iostream>
 #include "body.h"
 #include "def.h"
@@ -54,6 +54,7 @@ Body* System::processRoot(pugi::xml_node sysNode)
     rootNode = sysNode.child("body");
     std::string tmpName = rootNode.child_value("name");
     std::string tmpType = rootNode.child_value("type");
+    std::string tmpDesc = rootNode.child_value("desc");
     int tmpRadius = atoi(rootNode.child_value("radius"));
     std::string tmpTexture = rootNode.child_value("texture");
     int tmpOrbitRadius = 0;
@@ -62,7 +63,7 @@ Body* System::processRoot(pugi::xml_node sysNode)
 
     core::vector3df tmpDefaultPos = core::vector3df(0.0f,0.0f,0.0f);
 
-    rootBody = new Body(this->smgr,this->driver,tmpDefaultPos,tmpRadius,tmpName,tmpType,tmpOrbitRadius,tmpOrbitSpeed,NULL,tmpTexture,tmpBrightness);
+    rootBody = new Body(this->smgr,this->driver,tmpDefaultPos,tmpRadius,tmpName,tmpDesc,tmpType,tmpOrbitRadius,tmpOrbitSpeed,NULL,tmpTexture,tmpBrightness);
 
     tmpNode = rootNode.child("children").first_child();
     bool morePlanets = true;
@@ -90,6 +91,7 @@ Body* System::processChild(pugi::xml_node tmpRoot, Body* parent)
     xml_node tmpNode;
     std::string tmpName = tmpRoot.child_value("name");
     std::string tmpType = tmpRoot.child_value("type");
+    std::string tmpDesc = tmpRoot.child_value("desc");
     int tmpRadius = atoi(tmpRoot.child_value("radius"));
     std::string tmpTexture = tmpRoot.child_value("texture");
     int tmpOrbitRadius = atoi(tmpRoot.child_value("orbit_radius"));
@@ -102,7 +104,7 @@ Body* System::processChild(pugi::xml_node tmpRoot, Body* parent)
     
     //core::vector3df(tmpOrbitRadius,0.0f,0.0f);
 
-    Body* rootBody = new Body(this->smgr,this->driver,tmpDefaultPos,tmpRadius,tmpName,tmpName,tmpOrbitRadius,tmpOrbitSpeed,parent,tmpTexture,tmpBrightness);
+    Body* rootBody = new Body(this->smgr,this->driver,tmpDefaultPos,tmpRadius,tmpName,tmpDesc,tmpType,tmpOrbitRadius,tmpOrbitSpeed,parent,tmpTexture,tmpBrightness);
     tmpNode = tmpRoot.child("children").first_child();
     bool morePlanets = true;
 
