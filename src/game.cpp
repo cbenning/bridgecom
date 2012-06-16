@@ -2,14 +2,12 @@
 #include <iostream>
 #include "followcamera.h"
 #include "ship.h"
-//#include "targets.h"
 #include "body.h"
 #include "def.h"
 #include "system.h"
 #include "event.h"
 #include "Box2D/Box2D.h"
 #include <vector>
-//#include "grid/CGridSceneNode.h"
 
 using namespace irr;
 using namespace core;

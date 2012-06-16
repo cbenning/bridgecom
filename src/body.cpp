@@ -6,9 +6,6 @@ Body::Body(ISceneManager* smgr,IVideoDriver* driver, core::vector3df position, c
 {
 
     this->radius=radius;
-    //this->name=name;
-    //this->desc=desc;
-    //this->type=type;
     this->orbitRadius=orbitRadius;
     this->orbitSpeed=orbitSpeed;
     this->parentBody=parentBody;
@@ -20,7 +17,7 @@ Body::Body(ISceneManager* smgr,IVideoDriver* driver, core::vector3df position, c
     this->brightness=brightness;
     this->node=NULL;
 
-    cout << "Created " << this->name << " with " << this->texture << "\n";
+    cout << "Created " << this->getTName() << " with " << this->texture << "\n";
 
 }
 
@@ -42,8 +39,8 @@ void Body::buildBody()
         tmp.Y-=(this->radius+BODY_PLANE_BUFFER);
         this->node->setPosition(tmp);
 
-        cout << "Type: " << this->type << "\n";
-        if(this->type=="star"){
+        cout << "Type: " << this->getTType() << "\n";
+        if(this->getTType()=="star"){
             this->smgr->addLightSceneNode(0,this->getPosition(),video::SColorf(this->brightness,this->brightness,this->brightness),this->radius,1); 
             this->node->setMaterialFlag(EMF_LIGHTING, false); // enable dynamic lighting
             //Offset the location to underneath the plane
@@ -54,7 +51,7 @@ void Body::buildBody()
 
         if(this->parentBody)
         {
-            cout << this->name << ", Orbit speed: " << this->orbitSpeed << "Parent: " << this->parentBody->getName() << "\n";
+            cout << this->getTName() << ", Orbit speed: " << this->orbitSpeed << "Parent: " << this->parentBody->getName() << "\n";
             vector3df tmp2 = this->parentBody->getPosition();
             tmp2.Y = tmp.Y;
             ISceneNodeAnimator* anim = smgr->createFlyCircleAnimator(tmp2, this->orbitRadius, this->orbitSpeed);
@@ -86,7 +83,7 @@ core::vector3df Body::getPosition(){
 }
 
 std::string Body::getName(){
-    return this->name;
+    return this->getTName();
 }
 
 
