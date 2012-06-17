@@ -1,5 +1,6 @@
 
 #include <irrlicht.h> 
+#include <string>
 #include "util.h"
 
 b2Vec2 Util::rad2vec(float r, float m ) {
@@ -19,3 +20,9 @@ float Util::vec2deg(b2Vec2 v) {
    return vec2rad(v)*57.295779513082320876798154814105f;
 }
 
+//Source:: http://www.cplusplus.com/forum/general/26309/
+std::wstring Util::stringToWstring(const std::string &strPicPath) {
+	std::wstring temp(strPicPath.length(), L' ');
+	std::copy(strPicPath.begin(), strPicPath.end(), temp.begin());
+	return temp;
+}

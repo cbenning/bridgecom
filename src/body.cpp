@@ -71,6 +71,9 @@ void Body::buildBody()
     for(i = 0; i< this->numChildren; i++){
         this->children[i]->buildBody();
     }
+
+    //Add this body to the list of targets
+    Targets::getInstance().addTarget(*this);
 }
 
 core::vector3df Body::getPosition(){

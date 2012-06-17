@@ -1,13 +1,14 @@
 #include <irrlicht.h>
 #include <iostream>
+#include <string>
 #include "followcamera.h"
-#include "ship.h"
 #include "body.h"
 #include "def.h"
 #include "system.h"
-#include "event.h"
 #include "Box2D/Box2D.h"
 #include <vector>
+#include "ship.h"
+#include "event.h"
 
 using namespace irr;
 using namespace core;
@@ -51,19 +52,12 @@ int main()
     IVideoDriver* driver = device->getVideoDriver();
     ISceneManager* smgr = device->getSceneManager();
     IGUIEnvironment* guienv = device->getGUIEnvironment();
-    
-    //
-    // Targeting text
-    //
-    guienv->addStaticText(L"Current Input",rect<s32>(10,10,260,22), true);
-            
+
     System* solSys = new System(smgr,driver,"sol.xml");
     solSys->buildSystem();
-    
-
 
     //smgr->setAmbientLight(video::SColorf(0.3,0.3,0.3,1));
-    Ship* myShip = new Ship(smgr,driver,gameWorld,0);
+    Ship* myShip = new Ship(smgr,driver,guienv,gameWorld,0);
 
     ICameraSceneNode* camera = smgr->addCameraSceneNode(0);
     camera->setFarValue(50000.0f); 

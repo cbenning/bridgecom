@@ -1,7 +1,10 @@
 
 #include "ship.h"
+#include "targets.h"
+#include <iostream>
 
-Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const int model)
+
+Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, IGUIEnvironment* guiEnv, b2World* gameWorld, const int model)
 {
 
     //this->shipForwardThrust=1.0f;
@@ -16,6 +19,14 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const 
     this->cameraZoomX = DEFAULT_CAM_ZOOM_X; 
     this->cameraZoomingOut = false;
     this->cameraZoomingIn = false;
+    this->currentlyTargetting = false;
+    this->guiEnv = guiEnv;
+
+    // Gui stuff, for targetting text TODO
+    this->guiEnv->addStaticText(L"Current Target",rect<s32>(10,10,400,40), true , true, 0, -1, true);
+    this->guiTargetNameText = this->guiEnv->addStaticText(L"No Target",rect<s32>(10,50,400,80), true, true, 0, -1, true);
+    this->guiTargetTypeText = this->guiEnv->addStaticText(L"i",rect<s32>(10,90,400,120), true, true, 0, -1, true);
+    this->guiTargetDescText = this->guiEnv->addStaticText(L"i",rect<s32>(10,130,400,200), true, true, 0, -1, true);
 
     //std::string shipModel = "patrol_frigate.3ds";
     std::string shipModel = "transport_1.b3d";
@@ -184,6 +195,36 @@ void Ship::cancelRightStrafeThrust(){
         this->shipRightStrafeThrustOn = false;
     }
 }
+
+void Ship::beginCycleTarget(){
+    if(!this->currentlyTargetting){
+        this->currentlyTargetting = true;
+    }
+}
+
+void Ship::commitCycleTarget(){
+    if(this->currentlyTargetting){
+        this->currentlyTargetting = false;
+        //Actually cycle the target
+        TargetableObject* tmpTarget = Targets::getInstance().cycleTarget();
+        if(tmpTarget){
+            this->setTargetText(tmpTarget->getTName(),tmpTarget->getTDesc(),tmpTarget->getTType());
+        }
+    }
+}
+
+void Ship::setTargetText(std::string name, std::string desc, std::string type){
+
+    wstring tmpWName,tmpWDesc,tmpWType;
+    tmpWName = Util::stringToWstring(name);
+    tmpWDesc = Util::stringToWstring(desc);
+    tmpWType = Util::stringToWstring(type);
+
+    this->guiTargetNameText->setText(tmpWName.c_str());
+    this->guiTargetDescText->setText(tmpWDesc.c_str());
+    this->guiTargetTypeText->setText(tmpWType.c_str());
+}
+
 
 core::vector3df Ship::getCamFollowPosition(){
 

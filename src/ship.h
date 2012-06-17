@@ -1,10 +1,6 @@
 
-#include <irrlicht.h> 
 #include <string>
-#include <iostream>
-#include "def.h"
 #include "util.h"
-#include "Box2D/Box2D.h"
 
 using namespace irr; 
 using namespace core; 
@@ -36,13 +32,24 @@ private:
     float cameraZoomX;
     scene::IAnimatedMesh* mesh;
     scene::IAnimatedMeshSceneNode* node;
+
     //Box2D stuff
     b2BodyDef bodyDef;
     b2World* gameWorld;
     b2Body* dynamicBody;
 
+    //Target Stuff
+    bool currentlyTargetting;
+    IGUIEnvironment* guiEnv;
+    IGUIStaticText* guiTargetNameText;
+    IGUIStaticText* guiTargetDescText;
+    IGUIStaticText* guiTargetTypeText;
+    void setTargetText(std::string name, std::string desc, std::string type);
+    //TargetableObject* cycleHostileTarget();
+    //TargetableObject* cycleFriendlyTarget();
+
 public:
-    Ship(ISceneManager* smgr, IVideoDriver* driver, b2World* gameWorld, const int model);
+    Ship(ISceneManager* smgr, IVideoDriver* driver, IGUIEnvironment* guiEnv, b2World* gameWorld, const int model);
     core::vector3df getPosition();
     void setPosition(core::vector3df pos);
     core::vector3df getRotation();
@@ -63,6 +70,8 @@ public:
     void cancelLeftStrafeThrust();
     void applyRightStrafeThrust();
     void cancelRightStrafeThrust();
+    void beginCycleTarget();
+    void commitCycleTarget();
     core::vector3df getCamFollowPosition();
     IAnimatedMeshSceneNode* getSceneNode();
     void update(ICameraSceneNode* camera);

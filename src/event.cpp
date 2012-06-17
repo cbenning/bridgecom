@@ -43,14 +43,12 @@ int GameEventReceiver::handleInput(u32 then, u32 now, IrrlichtDevice *device, Sh
     nodePosition = shipNode->getPosition();
     
     if(this->isKeyDown(irr::KEY_KEY_S)){
-        //cout<<"S\n";
         shipNode->applyReverseThrust();
     }
     else{
         shipNode->cancelReverseThrust();
     }
     if(this->isKeyDown(irr::KEY_KEY_W)){
-        //cout<<"W\n";
         shipNode->applyForwardThrust();
     }
     else{
@@ -58,7 +56,6 @@ int GameEventReceiver::handleInput(u32 then, u32 now, IrrlichtDevice *device, Sh
     }
 
     if(this->isKeyDown(irr::KEY_KEY_A)){
-        //cout<<"A\n";
         shipNode->applyLeftThrust();
     }
     else{
@@ -66,7 +63,6 @@ int GameEventReceiver::handleInput(u32 then, u32 now, IrrlichtDevice *device, Sh
     }
 
     if(this->isKeyDown(irr::KEY_KEY_D)){
-        //cout<<"D\n";
         shipNode->applyRightThrust();
     }
     else{
@@ -74,7 +70,6 @@ int GameEventReceiver::handleInput(u32 then, u32 now, IrrlichtDevice *device, Sh
     }
 
     if(this->isKeyDown(irr::KEY_KEY_Q)){
-        //cout<<"A\n";
         shipNode->applyLeftStrafeThrust();
     }
     else{
@@ -82,15 +77,23 @@ int GameEventReceiver::handleInput(u32 then, u32 now, IrrlichtDevice *device, Sh
     }
 
     if(this->isKeyDown(irr::KEY_KEY_E)){
-        //cout<<"D\n";
         shipNode->applyRightStrafeThrust();
     }
     else{
         shipNode->cancelRightStrafeThrust();
     }
+    
+    //
+    // Targetting
+    //
+    if(this->isKeyDown(irr::KEY_KEY_T)){
+        shipNode->beginCycleTarget();
+    }
+    else{
+        shipNode->commitCycleTarget();
+    }
 
     if(this->isKeyDown(irr::KEY_UP)){
-        //cout<<"D\n";
         shipNode->decreaseCameraZoom(false);
     }
     else{
