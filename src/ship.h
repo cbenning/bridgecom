@@ -41,6 +41,7 @@ private:
     //Target Stuff
     bool currentlyTargetting;
     IGUIEnvironment* guiEnv;
+    IGUIStaticText* guiTargetText;
     IGUIStaticText* guiTargetNameText;
     IGUIStaticText* guiTargetDescText;
     IGUIStaticText* guiTargetTypeText;

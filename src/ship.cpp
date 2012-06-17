@@ -23,10 +23,16 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, IGUIEnvironment* guiEnv, b
     this->guiEnv = guiEnv;
 
     // Gui stuff, for targetting text TODO
-    this->guiEnv->addStaticText(L"Current Target",rect<s32>(10,10,400,40), true , true, 0, -1, true);
-    this->guiTargetNameText = this->guiEnv->addStaticText(L"No Target",rect<s32>(10,50,400,80), true, true, 0, -1, true);
-    this->guiTargetTypeText = this->guiEnv->addStaticText(L"i",rect<s32>(10,90,400,120), true, true, 0, -1, true);
-    this->guiTargetDescText = this->guiEnv->addStaticText(L"i",rect<s32>(10,130,400,200), true, true, 0, -1, true);
+    this->guiTargetText = this->guiEnv->addStaticText(L"Current Target",rect<s32>(10,10,400,40), false , true, 0, -1, false);
+    this->guiTargetNameText = this->guiEnv->addStaticText(L"No Target",rect<s32>(10,50,400,80), false, true, 0, -1, false);
+    this->guiTargetTypeText = this->guiEnv->addStaticText(L"N/A",rect<s32>(10,90,400,120), false, true, 0, -1, false);
+    this->guiTargetDescText = this->guiEnv->addStaticText(L"N/A",rect<s32>(10,130,400,200), false, true, 0, -1, false);
+    IGUIFont* fnt = this->guiEnv->getFont(TARGET_FONT);
+    this->guiEnv->getSkin()->setFont(fnt);
+    this->guiTargetText->setOverrideColor(SColor(255, 200, 50, 50));
+    this->guiTargetNameText->setOverrideColor(SColor(255, 255, 255, 255));
+    this->guiTargetDescText->setOverrideColor(SColor(255, 255, 255, 255));
+    this->guiTargetTypeText->setOverrideColor(SColor(255, 255, 255, 255));
 
     //std::string shipModel = "patrol_frigate.3ds";
     std::string shipModel = "transport_1.b3d";
