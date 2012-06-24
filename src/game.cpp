@@ -70,6 +70,7 @@ int main()
 
     u32 then = device->getTimer()->getTime();
     u32 now;
+    int lastFPS = -1;
 
     while(device->run())
     {
@@ -102,6 +103,20 @@ int main()
             smgr->drawAll();
             guienv->drawAll();
             driver->endScene();
+
+            int fps = driver->getFPS();
+
+            if (lastFPS != fps)
+            {
+                    core::stringw tmp(L"Bridge Command [");
+                    tmp += driver->getName();
+                    tmp += L"] fps: ";
+                    tmp += fps;
+
+                    device->setWindowCaption(tmp.c_str());
+                    lastFPS = fps;
+            }
+
         //}
         //else
         //{
