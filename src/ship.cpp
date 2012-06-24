@@ -1,10 +1,10 @@
 
 #include "ship.h"
-#include "targets.h"
+//#include "targets.h"
 #include <iostream>
 
 
-Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, IGUIEnvironment* guiEnv, b2World* gameWorld, const int model)
+Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, IGUIEnvironment* guiEnv, b2World* gameWorld, const int model, std::string name, std::string desc, std::string type) : TargetableObject(name,desc,type)
 {
 
     //this->shipForwardThrust=1.0f;
@@ -93,6 +93,7 @@ Ship::Ship(ISceneManager* smgr, IVideoDriver* driver, IGUIEnvironment* guiEnv, b
 
     //myWorld->DestroyBody(dynamicBody);
     //dynamicBody = NULL;
+    Targets::getInstance().addTarget(*this);
 
 }
 

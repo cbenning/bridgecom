@@ -9,6 +9,7 @@
 #include <vector>
 #include "ship.h"
 #include "event.h"
+#include "targets.h"
 
 using namespace irr;
 using namespace core;
@@ -57,7 +58,7 @@ int main()
     solSys->buildSystem();
 
     //smgr->setAmbientLight(video::SColorf(0.3,0.3,0.3,1));
-    Ship* myShip = new Ship(smgr,driver,guienv,gameWorld,0);
+    Ship* myShip = new Ship(smgr,driver,guienv,gameWorld,0, "VagineDestroyer", "VagineDestroyer", "VagineDestroyer");
 
     ICameraSceneNode* camera = smgr->addCameraSceneNode(0);
     camera->setFarValue(50000.0f); 

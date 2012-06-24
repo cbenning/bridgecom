@@ -1,3 +1,4 @@
+#pragma once
 
 #define NEUTRAL 0
 #define HOSTILE 1
@@ -6,7 +7,7 @@
 #include <vector>
 
 class TargetableObject{
-    private:
+    protected:
         unsigned int friendlyState;
         std::string tdesc;
         std::string tname;

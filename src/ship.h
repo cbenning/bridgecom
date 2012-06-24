@@ -1,6 +1,7 @@
 
 #include <string>
 #include "util.h"
+#include "targets.h"
 
 using namespace irr; 
 using namespace core; 
@@ -16,9 +17,10 @@ using namespace std;
 #define MIN_CAM_ZOOM 2
 #define CAM_ZOOM_DELTA 0.05f
 
-class Ship
+class Ship : public TargetableObject
 {
 private:
+protected:
     std::string shipModel;
     bool shipForwardThrustOn;
     bool shipReverseThrustOn;
@@ -50,7 +52,7 @@ private:
     //TargetableObject* cycleFriendlyTarget();
 
 public:
-    Ship(ISceneManager* smgr, IVideoDriver* driver, IGUIEnvironment* guiEnv, b2World* gameWorld, const int model);
+    Ship(ISceneManager* smgr, IVideoDriver* driver, IGUIEnvironment* guiEnv, b2World* gameWorld, const int model, std::string name, std::string desc, std::string type);
     core::vector3df getPosition();
     void setPosition(core::vector3df pos);
     core::vector3df getRotation();
