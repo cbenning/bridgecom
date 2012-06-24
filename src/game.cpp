@@ -40,9 +40,9 @@ int main()
     //
     b2Vec2 gravity = b2Vec2(0.0f,0.0f);
     b2World* gameWorld = new b2World(gravity);
-    float32 timeStep = 1.0f / 30.f;
-    int32 velocityIterations = 10;
-    int32 positionIterations = 8;
+    f32 timeStep = 1.0f / 60.f;
+    int32 velocityIterations = 6;
+    int32 positionIterations = 2;
     gameWorld->Step(timeStep, velocityIterations, positionIterations);
     if (!device)
             return 1;
@@ -68,16 +68,19 @@ int main()
     //Plane Grid - Needs work
     //CGridSceneNode* grid = new CGridSceneNode(smgr->getRootSceneNode(), smgr, -1, 100, 16384, SColor(16,8,42,8),20,SColor(16,8,42,8));
 
-    u32 then = device->getTimer()->getTime();
-    u32 now;
+    //u32 then = device->getTimer()->getTime();
+    //u32 now;
+    f32 TimeStamp = device->getTimer()->getTime();
+    f32 DeltaTime = device->getTimer()->getTime() - TimeStamp;
     int lastFPS = -1;
 
     while(device->run())
     {
         
-        now = device->getTimer()->getTime();
-
-        if(eventReceiver->handleInput(then,now,device,myShip) !=0)
+        //now = device->getTimer()->getTime();
+        DeltaTime = device->getTimer()->getTime() - TimeStamp;
+        TimeStamp = device->getTimer()->getTime();
+        if(eventReceiver->handleInput(DeltaTime,TimeStamp,device,myShip) !=0)
             return -1;
 
         //if (device->isWindowActive())
@@ -91,7 +94,8 @@ int main()
             // Instruct the world to perform a single step of simulation.
             // It is generally best to keep the time step and iterations fixed.
 
-            gameWorld->Step(timeStep, velocityIterations, positionIterations);
+            gameWorld->Step(timeStep*DeltaTime, velocityIterations, positionIterations);
+
             myShip->update(camera);
 
             /* For when more than one physics body exists
@@ -108,13 +112,13 @@ int main()
 
             if (lastFPS != fps)
             {
-                    core::stringw tmp(L"Bridge Command [");
-                    tmp += driver->getName();
-                    tmp += L"] fps: ";
-                    tmp += fps;
+                core::stringw tmp(L"Bridge Command [");
+                tmp += driver->getName();
+                tmp += L"] fps: ";
+                tmp += fps;
 
-                    device->setWindowCaption(tmp.c_str());
-                    lastFPS = fps;
+                device->setWindowCaption(tmp.c_str());
+                lastFPS = fps;
             }
 
         //}
